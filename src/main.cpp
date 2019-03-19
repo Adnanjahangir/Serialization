@@ -1,6 +1,4 @@
 #include<iostream>
-#include<cstring>
-#include<typeinfo>
 #include"TxWireData.h"
 using namespace std;
 
