@@ -39,15 +39,16 @@ class Signatory{
     }
     
     void printSignatory(){
-        cout << "IDENTITY DATA: " <<endl;
+        cout << "IDENTITY DATA LENGTH: " << identity_data.getLength() << endl;
+        cout << "DATA: ";
         identity_data.PrintIdentity();
-        cout << "SIGNATURE DATA: " <<endl;
+        cout << "\nSIGNATURE DATA: " << signature_data.getLength() <<endl;
+        cout << "DATA: ";
         signature_data.PrintSignature();
+        cout << endl;
     }
 
     auto getLength(){
-        cout << identity_data.getLength() << endl;
-        cout << signature_data.getLength() <<endl;
         return length;
     }
 };

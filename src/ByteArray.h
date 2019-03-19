@@ -33,14 +33,13 @@ class ByteArray{
         cout << "Enter length: ";
         cin >> number_of_bytes;
         delete Bytes;
+        cout << "Enter " << number_of_bytes << " bytes: ";
         Bytes = new Byte [number_of_bytes]; 
         for(int i = 0; i< number_of_bytes; i++)
         {
             cin >> Bytes[i];
         }
 
-        // cout << "------------------------\n";
-        // printByteArray();
     }
 
     auto Serialize(Byte *buffer, int offset = 0)
@@ -49,7 +48,6 @@ class ByteArray{
         
         for(int i = 0; i < number_of_bytes; i++)
         {
-            //cout << "location: " << (sizeof(uint64_t) + i + offset) << "   value: " << Bytes[i] << endl;
             buffer[(sizeof(uint64_t) + i + offset)] = Bytes[i] ;
         }
         return number_of_bytes+sizeof(uint64_t);

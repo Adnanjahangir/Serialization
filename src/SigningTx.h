@@ -55,7 +55,7 @@ class SigningTx{
         primary_data.Print();
 
 
-        cout << endl << "Identity DATA: " << endl;
+        cout << endl << "IDENTITY DATA: " << endl;
         identity_data.PrintIdentity();
     }
 
