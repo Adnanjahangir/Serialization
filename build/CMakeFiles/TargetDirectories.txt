@@ -1,3 +1,0 @@
-/home/emumba/Desktop/Mini_Project_Docker/Project/build/CMakeFiles/rebuild_cache.dir
-/home/emumba/Desktop/Mini_Project_Docker/Project/build/CMakeFiles/main.dir
-/home/emumba/Desktop/Mini_Project_Docker/Project/build/CMakeFiles/edit_cache.dir
