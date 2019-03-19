@@ -18,14 +18,14 @@ add_executable(main ${SOURCES})
 
 
 
-find_package(Boost REQUIRED COMPONENTS serialization)
-IF (Boost_FOUND)
-include_directories(${Boost_INCLUDE_DIRS})
-message("BOOST FOUND")
-message(${Boost_INCLUDE_DIR})
-endif()
+#find_package(Boost REQUIRED COMPONENTS serialization)
+#IF (Boost_FOUND)
+#include_directories(${Boost_INCLUDE_DIRS})
+#message("BOOST FOUND")
+#message(${Boost_INCLUDE_DIR})
+#endif()
 
-target_link_libraries(main PUBLIC ${Boost_LIBRARIES})
+target_link_libraries(main PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/ByteArray.h)
 include_directories(${Boost_INCLUDE_DIRS} /archive)
 
 #file(GLOB_RECURSE SOURCES *.cpp)
