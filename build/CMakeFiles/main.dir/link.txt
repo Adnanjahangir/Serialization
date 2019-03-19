@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/main.dir/src/Myproject.cpp.o  -o main /usr/lib/x86_64-linux-gnu/libboost_serialization.so 
