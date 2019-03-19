@@ -1,7 +1,6 @@
 #include<iostream>
 #include<cstring>
 #include<typeinfo>
-#include"ByteArray.h"
 #include"TxWireData.h"
 using namespace std;
 

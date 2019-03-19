@@ -4,13 +4,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/emumba/Desktop/Mini_Project_Docker/Project/src/Myproject.cpp" "/home/emumba/Desktop/Mini_Project_Docker/Project/build/CMakeFiles/main.dir/src/Myproject.cpp.o"
+  "/home/emumba/Desktop/Mini_Project_Docker/Project/src/main.cpp" "/home/emumba/Desktop/Mini_Project_Docker/Project/build/CMakeFiles/main.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/archive"
+  "../src"
   )
 
 # Targets to which this target links.

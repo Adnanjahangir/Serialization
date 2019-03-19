@@ -7,7 +7,6 @@
 #include"List.h"
 #include"ByteArray.h"
 
-using namespace std;
 
 class TxWireData{
     PrimaryTx Tx_data;

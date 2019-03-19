@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/archive 
+CXX_INCLUDES = -I/home/emumba/Desktop/Mini_Project_Docker/Project/src 
 

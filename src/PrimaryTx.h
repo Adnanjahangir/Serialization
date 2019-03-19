@@ -6,6 +6,7 @@
 
 class PrimaryTx{
     ByteArray Contract_name;
+    
     uint64_t Fee;
     List<ByteArray> Resources;
     uint64_t length;
