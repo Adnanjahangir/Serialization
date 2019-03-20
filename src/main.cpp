@@ -1,11 +1,27 @@
 #include<iostream>
-#include"SigningTx.h"
 #include"TxWireData.h"
 using namespace std;
 
 int main()
 {
+    ByteArray b1(15);
+    uint64_t size = b1.getLength();
+    Byte *buffer;
+    buffer = new Byte [size];
+    
+    auto len = b1.Serialize(buffer);
 
+    for(int i = 0; i < len; i++)
+    {
+        if(i < sizeof(uint64_t))
+            cout << int(buffer[i]) << " ";
+        else
+            cout << buffer[i] << " ";
+    }
+    cout << endl << endl;
+    ByteArray b2;
+    b2.Deserialize(buffer);
+    b2.printByteArray();
 
     return 0;
 }

@@ -6,6 +6,7 @@
 #include"PrimaryTx.h"
 #include"List.h"
 #include"ByteArray.h"
+#include"SigningTx.h"
 
 
 class TxWireData{
