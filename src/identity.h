@@ -12,6 +12,7 @@ class Identity{
     public:
     Identity()
     {
+        length = 0;
     }
 
     void SetIdentity()

@@ -1,20 +1,11 @@
 #include<iostream>
+#include"SigningTx.h"
 #include"TxWireData.h"
 using namespace std;
 
 int main()
 {
-    TxWireData l1;
-    l1.setTxWireData();
-    l1.printTxWireData();
-    
-    Byte *buff;
-    buff = new Byte[l1.getLength()];
-    l1.Serialize(buff);
-    cout << "AFTER DESERIALIZATION\n\n\n";
-    TxWireData l2;
-    l2.Deserialize(buff);
-    l2.printTxWireData();
+
 
     return 0;
 }
@@ -112,7 +103,7 @@ int main()
 
 */
 
-//CODE MAIN FOR IDENTITY TYPE
+//CODE MAIN FOR SIGNATURE TYPE
 /*
     Signature I1;
     I1.SetSignature();
@@ -156,7 +147,7 @@ int main()
     return 0;
 */
 
-//CODE MAIN FOR PRIMARYTx TYPE data
+//CODE MAIN FOR SIGNINGTx TYPE data
 /*
     SigningTx T1;
     T1.setSigningTx();
@@ -188,3 +179,20 @@ int main()
     return 0;
 */
 
+//CODE MAIN FOR TxWire DATA
+/*
+    TxWireData l1;
+    l1.setTxWireData();
+    l1.printTxWireData();
+    
+    Byte *buff;
+    buff = new Byte[l1.getLength()];
+    l1.Serialize(buff);
+    cout << "AFTER DESERIALIZATION\n\n\n";
+    TxWireData l2;
+    l2.Deserialize(buff);
+    l2.printTxWireData();
+
+    return 0;
+
+*/

@@ -86,10 +86,10 @@ class List{
     }
     ~List()
     {
-        delete ListItems;
+        cout << "List deleted" << endl;
+        delete[] ListItems;
     }
     
-
 };
 
 template<>
@@ -167,6 +167,7 @@ class List<ByteArray>{
 
     ~List()
     {
+        delete[] ListItems;
     }
 };
 
@@ -245,6 +246,7 @@ class List<Signatory>{
 
     ~List()
     {
+        delete[] ListItems;
     }
 
 };
