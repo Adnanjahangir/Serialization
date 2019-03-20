@@ -9,80 +9,80 @@
 template<class T>
 class List{
     uint64_t number_of_list_items;
-    T* ListItems;
+    T* listItems;
 
     public:
     List()
     {
         number_of_list_items = 0;
-        ListItems = new T;
+        listItems = new T;
     }
     List(uint64_t no):number_of_list_items(no)
     {
-        ListItems = new T[number_of_list_items];
+        listItems = new T[number_of_list_items];
         auto x = 100;
         for(int i = 0; i<number_of_list_items; i++)
         {
-            ListItems[i] = T(x);
+            listItems[i] = T(x);
             x+=1;
         }
     }
 
     void setListItems()
     {
-        cout << "Enter length of List: ";
-        cin >> number_of_list_items;
-        if(cin.fail())
+        std::cout << "Enter length of List: ";
+        std::cin >> number_of_list_items;
+        if(std::cin.fail())
         {
             throw MyException();
         }
-        delete ListItems;
-        ListItems = new T [number_of_list_items]; 
+        delete listItems;
+        listItems = new T [number_of_list_items]; 
         for(int i = 0; i< number_of_list_items; i++)
         {
-            cin >> ListItems[i];
-            if(cin.fail())
+            std::cin >> listItems[i];
+            if(std::cin.fail())
             {
                 throw MyException();
             }
         }
     }
 
-    auto Serialize(Byte *buffer, uint64_t index=0)
+    auto serialize(Byte *buffer, uint64_t index=0)
     {
         memcpy(buffer, &number_of_list_items, sizeof(uint64_t));
         
         Byte* ptr;     
-        buffer[sizeof(uint64_t)] = ListItems[0];
+        buffer[sizeof(uint64_t)] = listItems[0];
 
         for(int i = 0,j=0; j<number_of_list_items; i=i+sizeof(T), j++)
         {
-            // cout << "Location: " << (sizeof(uint64_t) + i) <<endl;
-            // cout << "Value: " << ListItems[j] <<endl;
-            buffer[(sizeof(uint64_t) + i)] = ListItems[j] ;
+            // std::cout << "Location: " << (sizeof(uint64_t) + i) <<std::endl;
+            // std::cout << "Value: " << listItems[j] <<std::endl;
+            buffer[(sizeof(uint64_t) + i)] = listItems[j] ;
         }
         return (number_of_list_items*sizeof(T))+sizeof(uint64_t);
     }
 
-    void Deserialize(Byte *buffer)
+    void deserialize(Byte *buffer)
     {
         number_of_list_items = *buffer;
-        delete ListItems;
-        ListItems = new T [number_of_list_items];
+        delete listItems;
+        listItems = new T [number_of_list_items];
         //T *ptr = buffer;
         for(int i = 0,j = 0; j < number_of_list_items; i+=sizeof(T), j++)
         {
-            ListItems[j] = buffer[i + sizeof(uint64_t)];
+            listItems[j] = buffer[i + sizeof(uint64_t)];
         }
     }
     
 
     void printListArray()
     {
-        cout << "Length is: " << number_of_list_items << endl;
+        std::cout << "Length is: " << number_of_list_items << std::endl;
         for(int i = 0; i < number_of_list_items; i++)
         {
-            cout << ListItems[i] << " ";
+            std::cout << listItems[i] << " ";
         }
     }
 
@@ -92,8 +92,8 @@ class List{
     }
     ~List()
     {
-        cout << "List deleted" << endl;
-        delete[] ListItems;
+        std::cout << "List deleted" << std::endl;
+        delete[] listItems;
     }
     
 };
@@ -101,7 +101,7 @@ class List{
 template<>
 class List<ByteArray>{
     uint64_t number_of_list_items;
-    ByteArray* ListItems;
+    ByteArray* listItems;
     uint64_t sizeforserializtion;
 
     public:
@@ -109,40 +109,40 @@ class List<ByteArray>{
     {
         number_of_list_items = 0;
         sizeforserializtion = 0;
-        ListItems = new ByteArray[number_of_list_items];
+        listItems = new ByteArray[number_of_list_items];
     }
     
     void setListItems()
     {
-        cout << "Enter number of list items: " << endl;
-        cin >> number_of_list_items;
-        if(cin.fail())
+        std::cout << "Enter number of list items: " << std::endl;
+        std::cin >> number_of_list_items;
+        if(std::cin.fail())
         {
             throw MyException();
         }
-        ListItems = new ByteArray[number_of_list_items];
+        listItems = new ByteArray[number_of_list_items];
         sizeforserializtion = sizeof(uint64_t);        
         for(int i =0; i < number_of_list_items; i++)
         {
             try{
-                ListItems[i].setByteArray();
+                listItems[i].setByteArray();
             }
             catch(const std::exception& e){
                 throw MyException();
             }
-            sizeforserializtion += ListItems[i].getLength();
+            sizeforserializtion += listItems[i].getLength();
         }
     }
 
-    auto Serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, int offset = 0)
     {
         buffer[offset] = number_of_list_items;
         uint64_t index = offset + sizeof(uint64_t);
         uint64_t temp = 0;
         for(int i = 0; i<number_of_list_items; i++)
         {
-            //cout << "Index: " << index << " i: " << i << endl;
-            temp = ListItems[i].Serialize(buffer, index);
+            //std::cout << "Index: " << index << " i: " << i << std::endl;
+            temp = listItems[i].serialize(buffer, index);
             index = index + temp;            
 
         }
@@ -150,17 +150,17 @@ class List<ByteArray>{
         
     }
 
-    void Deserialize(Byte *buffer,int position = 0)
+    void deserialize(Byte *buffer,int position = 0)
     {
         uint64_t index = position;
-        delete ListItems;
+        delete listItems;
         number_of_list_items = buffer[index];
         index = index + sizeof(uint64_t);
-        ListItems = new ByteArray[number_of_list_items];
+        listItems = new ByteArray[number_of_list_items];
         for(int i = 0; i< number_of_list_items; i++)
         {
-            ListItems[i].Deserialize(buffer, index);
-            index = index + ListItems[i].getLength();
+            listItems[i].deserialize(buffer, index);
+            index = index + listItems[i].getLength();
         }
         sizeforserializtion = index-position;        
     }
@@ -169,10 +169,10 @@ class List<ByteArray>{
     {
         for(int i = 0; i < number_of_list_items; i++)
         {
-            cout << "ByteArray[" << i << "]" <<endl;
-            ListItems[i].printByteArray();
+            std::cout << "ByteArray[" << i << "]" <<std::endl;
+            listItems[i].printByteArray();
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 
     uint64_t getLength()
@@ -182,14 +182,14 @@ class List<ByteArray>{
 
     ~List()
     {
-        delete[] ListItems;
+        delete[] listItems;
     }
 };
 
 template<>
 class List<Signatory>{
     uint64_t number_of_list_items;
-    Signatory* ListItems;
+    Signatory* listItems;
     uint64_t sizeforserializtion;
 
     public:
@@ -197,36 +197,36 @@ class List<Signatory>{
     {
         number_of_list_items = 0;
         sizeforserializtion = 0;
-        ListItems = new Signatory;
+        listItems = new Signatory;
     }
     
     void setListItems()
     {
-        cout << "Enter number of list items: " << endl;
-        cin >> number_of_list_items;
-        ListItems = new Signatory[number_of_list_items];
+        std::cout << "Enter number of list items: " << std::endl;
+        std::cin >> number_of_list_items;
+        listItems = new Signatory[number_of_list_items];
         sizeforserializtion = sizeof(uint64_t);        
         for(int i =0; i < number_of_list_items; i++)
         {
             try{
-            ListItems[i].setSignatory();
+            listItems[i].setSignatory();
             }
             catch(const std::exception& e){
                 throw MyException();
             }
-            sizeforserializtion += ListItems[i].getLength();
+            sizeforserializtion += listItems[i].getLength();
         }
     }
 
-    auto Serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, int offset = 0)
     {
         buffer[offset] = number_of_list_items;
         uint64_t index = offset + sizeof(uint64_t);
         uint64_t temp = 0;
         for(int i = 0; i<number_of_list_items; i++)
         {
-            //cout << "Index: " << index << " i: " << i << endl;
-            temp = ListItems[i].Serialize(buffer, index);
+            //std::cout << "Index: " << index << " i: " << i << std::endl;
+            temp = listItems[i].serialize(buffer, index);
             index = index + temp;            
 
         }
@@ -234,17 +234,17 @@ class List<Signatory>{
         
     }
 
-    void Deserialize(Byte *buffer,int position = 0)
+    void deserialize(Byte *buffer,int position = 0)
     {
         uint64_t index = position;
-        delete ListItems;
+        delete listItems;
         number_of_list_items = buffer[index];
         index = index + sizeof(uint64_t);
-        ListItems = new Signatory[number_of_list_items];
+        listItems = new Signatory[number_of_list_items];
         for(int i = 0; i< number_of_list_items; i++)
         {
-            ListItems[i].Deserialize(buffer, index);
-            index = index + ListItems[i].getLength();
+            listItems[i].deserialize(buffer, index);
+            index = index + listItems[i].getLength();
         }
         sizeforserializtion = index-position;        
     }
@@ -253,10 +253,10 @@ class List<Signatory>{
     {
         for(int i = 0; i < number_of_list_items; i++)
         {
-            cout << "SignatoryArray[" << i << "]" <<endl;
-            ListItems[i].printSignatory();
+            std::cout << "SignatoryArray[" << i << "]" <<std::endl;
+            listItems[i].printSignatory();
         }
-        cout << endl;
+        std::cout << std::endl;
     }
 
     uint64_t getLength()
@@ -266,7 +266,7 @@ class List<Signatory>{
 
     ~List()
     {
-        delete[] ListItems;
+        delete[] listItems;
     }
 
 };

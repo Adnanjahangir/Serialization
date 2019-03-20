@@ -33,26 +33,26 @@ class SigningTx{
         length = (primary_data.getLength() + identity_data.getLength());
     }
 
-    auto Serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, int offset = 0)
     {
         uint64_t index = 0, temp = 0;
-        temp = primary_data.Serialize(buffer);
+        temp = primary_data.serialize(buffer);
         
         index = offset + temp;
-        temp = identity_data.Serialize(buffer, index);
+        temp = identity_data.serialize(buffer, index);
         index = index + temp;
         length = index;
         return length;
     }
 
-    void Deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, int position=0)
     {
         uint64_t index = position;
-        primary_data.Deserialize(buffer);
+        primary_data.deserialize(buffer);
         index = index + primary_data.getLength();
 
 
-        identity_data.Deserialize(buffer, index);
+        identity_data.deserialize(buffer, index);
         length = index + identity_data.getLength();
     }
 
@@ -61,11 +61,11 @@ class SigningTx{
     }
 
     void printSigningTx(){
-        cout << "PRIMARY DATA: " <<endl;
+        std::cout << "PRIMARY DATA: " <<std::endl;
         primary_data.Print();
 
 
-        cout << endl << "IDENTITY DATA: " << endl;
+        std::cout << std::endl << "IDENTITY DATA: " << std::endl;
         identity_data.PrintIdentity();
     }
 

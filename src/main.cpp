@@ -1,41 +1,10 @@
 #include<iostream>
 #include"TxWireData.h"
-using namespace std;
 
 int main()
 {
 
-    PrimaryTx data;
-    try
-    {
-        data.setPrimaryTx();
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-        return EXIT_FAILURE;
-    }
-    //data.Print();
-
-    Byte *buff;
-    buff = new Byte[data.getLength()];
-    cout << "LENGTH: " << data.getLength() <<endl;
-    for(int i=0; i<data.getLength(); i++)
-    {
-        cout << int(buff[i]);
-    }
-    cout << endl;
-    data.Serialize(buff);
-    
-    cout << "LENGTH: " << data.getLength() <<endl;
-
-    PrimaryTx data2;
-
-
-    data2.Deserialize(buff);
-    data2.Print(); 
-
-    return EXIT_SUCCESS;
+    std::cout << "Helloworld";
     
 }
 
@@ -47,18 +16,18 @@ int main()
     Byte *buffer;
     buffer = new Byte [size];
     
-    auto len = b1.Serialize(buffer);
+    auto len = b1.serialize(buffer);
 
     for(int i = 0; i < len; i++)
     {
         if(i < sizeof(uint64_t))
-            cout << int(buffer[i]) << " ";
+            std::cout << int(buffer[i]) << " ";
         else
-            cout << buffer[i] << " ";
+            std::cout << buffer[i] << " ";
     }
-    cout << endl << endl;
+    std::cout << std::endl << std::endl;
     ByteArray b2;
-    b2.Deserialize(buffer);
+    b2.deserialize(buffer);
     b2.printByteArray();
 */
 
@@ -69,17 +38,17 @@ int main()
     Byte *buffer;
     buffer = new Byte [size];
     l1.printListArray();
-    auto len = l1.Serialize(buffer);
+    auto len = l1.serialize(buffer);
     for(int i = 0; i < len; i++)
     {
         if(i < sizeof(uint64_t))
-            cout << int(buffer[i]) << " ";
+            std::cout << int(buffer[i]) << " ";
         else
-            cout << int(buffer[i]) << " ";
+            std::cout << int(buffer[i]) << " ";
     }
-    cout << len << endl;
+    std::cout << len << std::endl;
     List<double> l2;
-    l2.Deserialize(buffer);
+    l2.deserialize(buffer);
     l2.printListArray();
 
 */
@@ -92,10 +61,10 @@ int main()
     l1.printListArray();
     Byte * buff;
     buff = new Byte[l1.getLength()];
-    uint64_t len = l1.Serialize(buff);
+    uint64_t len = l1.serialize(buff);
    
     List<ByteArray> l2;
-    l2.Deserialize(buff);
+    l2.deserialize(buff);
     l2.printListArray();
     return 0;
 */
@@ -108,10 +77,10 @@ int main()
     
     Byte *buff;
     buff = new Byte[l1.getLength()];
-    l1.Serialize(buff);
-    cout << "AFTER DESERIALIZATION\n\n\n";
+    l1.serialize(buff);
+    std::cout << "AFTER DESERIALIZATION\n\n\n";
     List<Signatory> l2;
-    l2.Deserialize(buff);
+    l2.deserialize(buff);
     l2.printListArray();
 */
 
@@ -124,10 +93,10 @@ int main()
     Byte *buff;
     buff = new Byte[I1.getLength()];
 
-    I1.Serialize(buff);
+    I1.serialize(buff);
 
     Identity I2;
-    I2.Deserialize(buff);
+    I2.deserialize(buff);
     I2.PrintIdentity();
 
 */
@@ -141,10 +110,10 @@ int main()
     Byte *buff;
     buff = new Byte[I1.getLength()];
 
-    I1.Serialize(buff);
+    I1.serialize(buff);
 
     Signature I2;
-    I2.Deserialize(buff);
+    I2.deserialize(buff);
     I2.PrintSignature();
 
 */
@@ -157,20 +126,20 @@ int main()
 
     Byte *buff;
     buff = new Byte[data.getLength()];
-    cout << "LENGTH: " << data.getLength() <<endl;
+    std::cout << "LENGTH: " << data.getLength() <<std::endl;
     for(int i=0; i<data.getLength(); i++)
     {
-        cout << int(buff[i]);
+        std::cout << int(buff[i]);
     }
-    cout << endl;
-    data.Serialize(buff);
+    std::cout << std::endl;
+    data.serialize(buff);
     
-    cout << "LENGTH: " << data.getLength() <<endl;
+    std::cout << "LENGTH: " << data.getLength() <<std::endl;
 
     PrimaryTx data2;
 
 
-    data2.Deserialize(buff);
+    data2.deserialize(buff);
     data2.Print(); 
 
     return 0;
@@ -183,11 +152,11 @@ int main()
     T1.printSigningTx();
     Byte *buffer;
     buffer = new Byte[T1.getLength()];
-    cout << "--------------------LENGTH IS----------------------    " << T1.getLength() <<endl; 
-    T1.Serialize(buffer);
-    cout << "-----------------------AFTER SERIALIZTION------------------------\n\n";
+    std::cout << "--------------------LENGTH IS----------------------    " << T1.getLength() <<std::endl; 
+    T1.serialize(buffer);
+    std::cout << "-----------------------AFTER SERIALIZTION------------------------\n\n";
     SigningTx T2;
-    T2.Deserialize(buffer);
+    T2.deserialize(buffer);
     T2.printSigningTx();  
 */
 
@@ -198,11 +167,11 @@ int main()
     T1.printSignatory();
     Byte *buffer;
     buffer = new Byte[T1.getLength()];
-    cout << "--------------------LENGTH IS----------------------    " << T1.getLength() <<endl; 
-    T1.Serialize(buffer);
-    cout << "-----------------------AFTER SERIALIZTION------------------------\n\n";
+    std::cout << "--------------------LENGTH IS----------------------    " << T1.getLength() <<std::endl; 
+    T1.serialize(buffer);
+    std::cout << "-----------------------AFTER SERIALIZTION------------------------\n\n";
     Signatory T2;
-    T2.Deserialize(buffer);
+    T2.deserialize(buffer);
     T2.printSignatory();  
 
     return 0;
@@ -216,10 +185,10 @@ int main()
     
     Byte *buff;
     buff = new Byte[l1.getLength()];
-    l1.Serialize(buff);
-    cout << "AFTER DESERIALIZATION\n\n\n";
+    l1.serialize(buff);
+    std::cout << "AFTER DESERIALIZATION\n\n\n";
     TxWireData l2;
-    l2.Deserialize(buff);
+    l2.deserialize(buff);
     l2.printTxWireData();
 
     return 0;

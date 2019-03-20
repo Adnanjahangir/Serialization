@@ -5,14 +5,14 @@
 
 
 class PrimaryTx{
-    ByteArray Contract_name;
+    ByteArray contract_name;
     
-    uint64_t Fee;
-    List<ByteArray> Resources;
+    uint64_t fee;
+    List<ByteArray> resources;
     uint64_t length;
     public:
     PrimaryTx(){
-        Fee = 0;
+        fee = 0;
         length = 0;
     }
 
@@ -21,65 +21,65 @@ class PrimaryTx{
     }
     
     void setPrimaryTx(){
-        cout << "Enter contract name: ";
+        std::cout << "Enter contract name: ";
         try{
-            Contract_name.setByteArray();
+            contract_name.setByteArray();
         }
         catch(const std::exception& e){
             throw MyException();
         }
-        cout << "Enter length of Fee: ";
-        cin >> Fee ;
-        if(cin.fail())
+        std::cout << "Enter length of fee: ";
+        std::cin >> fee ;
+        if(std::cin.fail())
         {
             throw MyException();
         }
         try{
-                Resources.setListItems();      
+                resources.setListItems();      
         }
         catch(const std::exception& e){
             throw MyException();
         }
         
-        length = Contract_name.getLength() + sizeof(Fee) + Resources.getLength();
+        length = contract_name.getLength() + sizeof(fee) + resources.getLength();
 
     }
 
-    auto Serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, int offset = 0)
     {
         uint64_t index = 0, temp = 0;
-        temp = Contract_name.Serialize(buffer, offset);
+        temp = contract_name.serialize(buffer, offset);
         
         index = offset + temp;
 
 
-        buffer[index] = Fee;
+        buffer[index] = fee;
         index = index + sizeof(uint64_t);
         
-        temp = Resources.Serialize(buffer, index);
+        temp = resources.serialize(buffer, index);
         index = index + temp;
         length = index;
         return length;
     }
 
-    void Deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, int position=0)
     {
         uint64_t index = position;
-        Contract_name.Deserialize(buffer, position);
-        index = index + Contract_name.getLength();
-        Fee = buffer[index];
+        contract_name.deserialize(buffer, position);
+        index = index + contract_name.getLength();
+        fee = buffer[index];
         index = index + sizeof(uint64_t);
-        Resources.Deserialize(buffer, index);
-        //index += Resources.getLength();
-        length = Contract_name.getLength() + sizeof(uint64_t) + Resources.getLength();
+        resources.deserialize(buffer, index);
+        //index += resources.getLength();
+        length = contract_name.getLength() + sizeof(uint64_t) + resources.getLength();
 
     }
 
 
     void Print(){
-        Contract_name.printByteArray();
-        cout << "Fee: " << Fee <<endl;
-        Resources.printListArray();
+        contract_name.printByteArray();
+        std::cout << "fee: " << fee <<std::endl;
+        resources.printListArray();
     }
     
     uint64_t getLength(){

@@ -6,7 +6,7 @@
 
 class Identity{
     uint64_t length;
-    ByteArray Identifier;
+    ByteArray identifier;
     ByteArray type;
     
     public:
@@ -17,17 +17,17 @@ class Identity{
 
     void SetIdentity()
     {
-        cout << "Enter Identifier data: "; 
+        std::cout << "Enter identifier data: "; 
         try
         {
-            Identifier.setByteArray();
+            identifier.setByteArray();
         }
         catch(const std::exception& e)
         {
             throw MyException();
         }
         
-        cout << "Enter type of Identifier: ";
+        std::cout << "Enter type of identifier: ";
         try
         {
             type.setByteArray();
@@ -36,26 +36,26 @@ class Identity{
         {
             throw MyException();
         }
-        length = (Identifier.getLength()) + (type.getLength());
+        length = (identifier.getLength()) + (type.getLength());
     }
 
-    auto Serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, int offset = 0)
     {
-        Identifier.Serialize(buffer, offset);
-        type.Serialize(buffer, offset + Identifier.getLength());
+        identifier.serialize(buffer, offset);
+        type.serialize(buffer, offset + identifier.getLength());
         return length;
     }
 
-    void Deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, int position=0)
     {
-        Identifier.Deserialize(buffer, position);
-        type.Deserialize(buffer, (position + Identifier.getLength()));
-        length = (Identifier.getLength()) + (type.getLength());
+        identifier.deserialize(buffer, position);
+        type.deserialize(buffer, (position + identifier.getLength()));
+        length = (identifier.getLength()) + (type.getLength());
     }
     
     void PrintIdentity()
     {
-        Identifier.printByteArray();
+        identifier.printByteArray();
         type.printByteArray();
     }
     uint64_t getLength()

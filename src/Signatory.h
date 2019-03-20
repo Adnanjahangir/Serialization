@@ -18,17 +18,17 @@ class Signatory{
 
     }
 
-    auto Serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, int offset = 0)
     {
-        identity_data.Serialize(buffer, offset);
-        signature_data.Serialize(buffer, identity_data.getLength()+offset);
+        identity_data.serialize(buffer, offset);
+        signature_data.serialize(buffer, identity_data.getLength()+offset);
         return length;
     }
     
-    void Deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, int position=0)
     {
-        identity_data.Deserialize(buffer, position);
-        signature_data.Deserialize(buffer, (position + identity_data.getLength()));
+        identity_data.deserialize(buffer, position);
+        signature_data.deserialize(buffer, (position + identity_data.getLength()));
         length = (identity_data.getLength()) + (signature_data.getLength());
     }
 
@@ -52,13 +52,13 @@ class Signatory{
     }
     
     void printSignatory(){
-        cout << "IDENTITY DATA LENGTH: " << identity_data.getLength() << endl;
-        cout << "DATA: ";
+        std::cout << "IDENTITY DATA LENGTH: " << identity_data.getLength() << std::endl;
+        std::cout << "DATA: ";
         identity_data.PrintIdentity();
-        cout << "\nSIGNATURE DATA: " << signature_data.getLength() <<endl;
-        cout << "DATA: ";
-        signature_data.PrintSignature();
-        cout << endl;
+        std::cout << "\nSIGNATURE DATA: " << signature_data.getLength() <<std::endl;
+        std::cout << "DATA: ";
+        signature_data.printSignature();
+        std::cout << std::endl;
     }
 
     auto getLength(){

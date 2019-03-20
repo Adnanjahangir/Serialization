@@ -10,7 +10,7 @@
 
 
 class TxWireData{
-    PrimaryTx Tx_data;
+    PrimaryTx tx_data;
     List<Signatory> list_data;
     uint64_t length;
 
@@ -21,7 +21,7 @@ class TxWireData{
     
     void setTxWireData(){
         try{
-            Tx_data.setPrimaryTx();
+            tx_data.setPrimaryTx();
         }
         catch(const std::exception& e){
             throw MyException();
@@ -32,34 +32,34 @@ class TxWireData{
         catch(const std::exception& e){
             throw MyException();
         }
-        length = Tx_data.getLength() + list_data.getLength();
+        length = tx_data.getLength() + list_data.getLength();
     }
 
-    auto Serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, int offset = 0)
     {
         uint64_t index = 0, temp = 0;
-        temp = Tx_data.Serialize(buffer);
+        temp = tx_data.serialize(buffer);
         
         index = offset + temp;
-        temp = list_data.Serialize(buffer, index);
+        temp = list_data.serialize(buffer, index);
         index = index + temp;
         length = index;
         return length;
     }
 
-    void Deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, int position=0)
     {
         uint64_t index = position;
-        Tx_data.Deserialize(buffer);
-        index = index + Tx_data.getLength();
+        tx_data.deserialize(buffer);
+        index = index + tx_data.getLength();
 
 
-        list_data.Deserialize(buffer, index);
+        list_data.deserialize(buffer, index);
         length = index + list_data.getLength();
     }
     
     void printTxWireData(){
-        Tx_data.Print();
+        tx_data.Print();
         list_data.printListArray();
     }
     

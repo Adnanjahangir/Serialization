@@ -13,7 +13,7 @@ class Signature{
     }
 
     void SetSignature(){
-        cout << "Enter Signature data: \n"; 
+        std::cout << "Enter Signature data: \n"; 
         try
         {
             Signature_data.setByteArray();
@@ -22,7 +22,7 @@ class Signature{
         {
             throw MyException();
         }
-        cout << "Enter type of Signature: \n";
+        std::cout << "Enter type of Signature: \n";
         try
         {
             Signature_type.setByteArray();
@@ -34,21 +34,21 @@ class Signature{
         length = Signature_data.getLength() + Signature_type.getLength();
     }
 
-    auto Serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, int offset = 0)
     {
-        Signature_data.Serialize(buffer, offset);
-        Signature_type.Serialize(buffer, Signature_data.getLength()+offset);
+        Signature_data.serialize(buffer, offset);
+        Signature_type.serialize(buffer, Signature_data.getLength()+offset);
         return length;
     }
 
-    void Deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, int position=0)
     {
-        Signature_data.Deserialize(buffer, position);
-        Signature_type.Deserialize(buffer, position + Signature_data.getLength());
+        Signature_data.deserialize(buffer, position);
+        Signature_type.deserialize(buffer, position + Signature_data.getLength());
         length = (Signature_data.getLength() + Signature_type.getLength());
     }
     
-    void PrintSignature()
+    void printSignature()
     {
         Signature_data.printByteArray();
         Signature_type.printByteArray();
