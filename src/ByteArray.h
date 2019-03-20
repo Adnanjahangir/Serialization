@@ -6,6 +6,17 @@ using namespace std;
 
 typedef unsigned char Byte;
 
+
+struct MyException : public std::exception
+{
+	const char * what () const throw ()
+    {
+    	return "Input Error";
+    }
+};
+
+
+
 class ByteArray{
 
     uint64_t number_of_bytes;
@@ -14,8 +25,8 @@ class ByteArray{
     public:
     ByteArray()
     {
-        Bytes = new Byte;
         number_of_bytes = 0;
+        Bytes = new Byte[number_of_bytes];
     }
     ByteArray(uint64_t no):number_of_bytes(no)
     {
@@ -32,12 +43,20 @@ class ByteArray{
     {
         cout << "Enter length: ";
         cin >> number_of_bytes;
+        if(cin.fail())
+        {
+            throw MyException();
+        }
         delete Bytes;
         cout << "Enter " << number_of_bytes << " bytes: ";
         Bytes = new Byte [number_of_bytes]; 
         for(int i = 0; i< number_of_bytes; i++)
         {
             cin >> Bytes[i];
+            if(cin.fail())
+            {
+                throw MyException();
+            }
         }
 
     }
@@ -82,5 +101,6 @@ class ByteArray{
         delete[] Bytes;
     }
 };
+
 
 #endif

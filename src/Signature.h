@@ -14,9 +14,23 @@ class Signature{
 
     void SetSignature(){
         cout << "Enter Signature data: \n"; 
-        Signature_data.setByteArray();
+        try
+        {
+            Signature_data.setByteArray();
+        }
+        catch(const std::exception& e)
+        {
+            throw MyException();
+        }
         cout << "Enter type of Signature: \n";
-        Signature_type.setByteArray();
+        try
+        {
+            Signature_type.setByteArray();
+        }
+        catch(const std::exception& e)
+        {
+            throw MyException();
+        }
         length = Signature_data.getLength() + Signature_type.getLength();
     }
 

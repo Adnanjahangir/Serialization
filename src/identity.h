@@ -18,9 +18,24 @@ class Identity{
     void SetIdentity()
     {
         cout << "Enter Identifier data: "; 
-        Identifier.setByteArray();
+        try
+        {
+            Identifier.setByteArray();
+        }
+        catch(const std::exception& e)
+        {
+            throw MyException();
+        }
+        
         cout << "Enter type of Identifier: ";
-        type.setByteArray();
+        try
+        {
+            type.setByteArray();
+        }
+        catch(const std::exception& e)
+        {
+            throw MyException();
+        }
         length = (Identifier.getLength()) + (type.getLength());
     }
 

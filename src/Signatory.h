@@ -33,9 +33,22 @@ class Signatory{
     }
 
     void setSignatory(){
-        identity_data.SetIdentity();
-        signature_data.SetSignature();
-        length = identity_data.getLength() + signature_data.getLength();
+        try
+        {
+            identity_data.SetIdentity();
+        }
+        catch(const std::exception& e)
+        {
+            throw MyException();
+        }
+        try
+        {
+            identity_data.SetIdentity();
+        }
+        catch(const std::exception& e)
+        {
+            throw MyException();
+        }
     }
     
     void printSignatory(){

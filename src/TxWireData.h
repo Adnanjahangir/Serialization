@@ -20,8 +20,18 @@ class TxWireData{
     }
     
     void setTxWireData(){
-        Tx_data.setPrimaryTx();
-        list_data.setListItems();
+        try{
+            Tx_data.setPrimaryTx();
+        }
+        catch(const std::exception& e){
+            throw MyException();
+        }
+        try{
+            list_data.setListItems();
+        }
+        catch(const std::exception& e){
+            throw MyException();
+        }
         length = Tx_data.getLength() + list_data.getLength();
     }
 

@@ -22,10 +22,25 @@ class PrimaryTx{
     
     void setPrimaryTx(){
         cout << "Enter contract name: ";
-        Contract_name.setByteArray();
+        try{
+            Contract_name.setByteArray();
+        }
+        catch(const std::exception& e){
+            throw MyException();
+        }
         cout << "Enter length of Fee: ";
         cin >> Fee ;
-        Resources.setListItems();
+        if(cin.fail())
+        {
+            throw MyException();
+        }
+        try{
+                Resources.setListItems();      
+        }
+        catch(const std::exception& e){
+            throw MyException();
+        }
+        
         length = Contract_name.getLength() + sizeof(Fee) + Resources.getLength();
 
     }

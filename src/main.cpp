@@ -4,26 +4,39 @@ using namespace std;
 
 int main()
 {
-    ByteArray b1(15);
-    uint64_t size = b1.getLength();
-    Byte *buffer;
-    buffer = new Byte [size];
-    
-    auto len = b1.Serialize(buffer);
 
-    for(int i = 0; i < len; i++)
+    PrimaryTx data;
+    try
     {
-        if(i < sizeof(uint64_t))
-            cout << int(buffer[i]) << " ";
-        else
-            cout << buffer[i] << " ";
+        data.setPrimaryTx();
     }
-    cout << endl << endl;
-    ByteArray b2;
-    b2.Deserialize(buffer);
-    b2.printByteArray();
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return EXIT_FAILURE;
+    }
+    //data.Print();
 
-    return 0;
+    Byte *buff;
+    buff = new Byte[data.getLength()];
+    cout << "LENGTH: " << data.getLength() <<endl;
+    for(int i=0; i<data.getLength(); i++)
+    {
+        cout << int(buff[i]);
+    }
+    cout << endl;
+    data.Serialize(buff);
+    
+    cout << "LENGTH: " << data.getLength() <<endl;
+
+    PrimaryTx data2;
+
+
+    data2.Deserialize(buff);
+    data2.Print(); 
+
+    return EXIT_SUCCESS;
+    
 }
 
 

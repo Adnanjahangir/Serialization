@@ -18,8 +18,18 @@ class SigningTx{
 
     }
     void setSigningTx(){
-        primary_data.setPrimaryTx();
-        identity_data.SetIdentity();
+        try{
+            primary_data.setPrimaryTx();
+        }
+        catch(const std::exception& e){
+            throw MyException();
+        }
+        try{
+            identity_data.SetIdentity();
+        }
+        catch(const std::exception& e){
+            throw MyException();
+        }
         length = (primary_data.getLength() + identity_data.getLength());
     }
 

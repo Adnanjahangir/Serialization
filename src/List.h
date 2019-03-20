@@ -32,12 +32,19 @@ class List{
     {
         cout << "Enter length of List: ";
         cin >> number_of_list_items;
+        if(cin.fail())
+        {
+            throw MyException();
+        }
         delete ListItems;
         ListItems = new T [number_of_list_items]; 
         for(int i = 0; i< number_of_list_items; i++)
         {
             cin >> ListItems[i];
-
+            if(cin.fail())
+            {
+                throw MyException();
+            }
         }
     }
 
@@ -65,7 +72,6 @@ class List{
         //T *ptr = buffer;
         for(int i = 0,j = 0; j < number_of_list_items; i+=sizeof(T), j++)
         {
-
             ListItems[j] = buffer[i + sizeof(uint64_t)];
         }
     }
@@ -103,18 +109,27 @@ class List<ByteArray>{
     {
         number_of_list_items = 0;
         sizeforserializtion = 0;
-        ListItems = new ByteArray;
+        ListItems = new ByteArray[number_of_list_items];
     }
     
     void setListItems()
     {
         cout << "Enter number of list items: " << endl;
         cin >> number_of_list_items;
+        if(cin.fail())
+        {
+            throw MyException();
+        }
         ListItems = new ByteArray[number_of_list_items];
         sizeforserializtion = sizeof(uint64_t);        
         for(int i =0; i < number_of_list_items; i++)
         {
-            ListItems[i].setByteArray();
+            try{
+                ListItems[i].setByteArray();
+            }
+            catch(const std::exception& e){
+                throw MyException();
+            }
             sizeforserializtion += ListItems[i].getLength();
         }
     }
@@ -193,7 +208,12 @@ class List<Signatory>{
         sizeforserializtion = sizeof(uint64_t);        
         for(int i =0; i < number_of_list_items; i++)
         {
+            try{
             ListItems[i].setSignatory();
+            }
+            catch(const std::exception& e){
+                throw MyException();
+            }
             sizeforserializtion += ListItems[i].getLength();
         }
     }
