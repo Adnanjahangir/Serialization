@@ -30,7 +30,7 @@ argument which will be a pointer to the buffer which will store the data. Pointe
 
 Byte *Buffer; //makes a pointer to a buffer of Bytetype
 
-Buffer = new Byte["lengthofObject"]; //Ths will allocate memory required in terms of number of bytes to store the data.Here lengthofObject can be Object1.getlength(); if you only want to store data of Object1
+Buffer = new Byte["lengthofObject"]; //This will allocate memory required in terms of number of bytes to store the data.Here lengthofObject can be Object1.getlength(); if you only want to store data of Object1
   
 Object1.serialize(Buffer); //This statement will serialize all the data of Object1 in buffer and will return number of bytes used
 
