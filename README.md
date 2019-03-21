@@ -1,6 +1,9 @@
 # Serialization Library
 
 This library helps you serialize and deserialize data in a specific format described in the document and store in some buffer. 
+
+To install the dependencies of these libraries, a Docker file is provided which makes an image of Ubuntu installing all the required components and a container can be created in which you can work on.
+
 The library has various classes depending on the the type of data format. 
 
 Main header file to include in this library is TxWireData.h which includes all the other header files and all other classes 
