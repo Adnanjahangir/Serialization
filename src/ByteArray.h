@@ -89,12 +89,12 @@ class ByteArray{
         *temp = number_of_bytes;
         for(int i = 0; i<sizeof(uint64_t); i++)
         {
-            std::cout << int(temp[i]); 
+            std::cout << std::hex << int(temp[i]); 
         }
         delete[] temp;
         for(int i = 0; i < number_of_bytes; i++)
         {
-            std::cout << bytes[i] ;
+            std::cout << std::hex  << int(bytes[i]) ;
         }
         
     }

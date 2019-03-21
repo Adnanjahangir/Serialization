@@ -57,8 +57,6 @@ class List{
 
         for(int i = 0,j=0; j<number_of_list_items; i=i+sizeof(T), j++)
         {
-            // std::cout << "Location: " << (sizeof(uint64_t) + i) <<std::endl;
-            // std::cout << "Value: " << listItems[j] <<std::endl;
             buffer[(sizeof(uint64_t) + i)] = listItems[j] ;
         }
         return (number_of_list_items*sizeof(T))+sizeof(uint64_t);
@@ -69,7 +67,6 @@ class List{
         number_of_list_items = *buffer;
         delete listItems;
         listItems = new T [number_of_list_items];
-        //T *ptr = buffer;
         for(int i = 0,j = 0; j < number_of_list_items; i+=sizeof(T), j++)
         {
             listItems[j] = buffer[i + sizeof(uint64_t)];
@@ -84,12 +81,12 @@ class List{
         *temp = number_of_list_items;
         for(int i = 0; i<sizeof(uint64_t); i++)
         {
-            std::cout << int(temp[i]); 
+            std::cout << std::hex << int(temp[i]); 
         }
         delete[] temp;
         for(int i = 0; i < number_of_list_items; i++)
         {
-            std::cout << listItems[i];
+            std::cout<< std::hex << listItems[i];
         }
     }
 
@@ -178,7 +175,7 @@ class List<ByteArray>{
         *temp = number_of_list_items;
         for(int i = 0; i<sizeof(uint64_t); i++)
         {
-            std::cout << int(temp[i]); 
+            std::cout << std::hex << int(temp[i]); 
         }
         delete[] temp;
         for(int i = 0; i < number_of_list_items; i++)
@@ -268,7 +265,7 @@ class List<Signatory>{
         *temp = number_of_list_items;
         for(int i = 0; i<sizeof(uint64_t); i++)
         { 
-            std::cout << int(temp[i]); 
+            std::cout << std::hex << int(temp[i]); 
         }
         delete[] temp;
         for(int i = 0; i < number_of_list_items; i++)
