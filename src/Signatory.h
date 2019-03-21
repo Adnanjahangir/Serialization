@@ -52,13 +52,26 @@ class Signatory{
     }
     
     void printSignatory(){
-        std::cout << "IDENTITY DATA LENGTH: " << identity_data.getLength() << std::endl;
-        std::cout << "DATA: ";
+        Byte *temp;
+        temp = new Byte[sizeof(uint64_t)];
+        *temp = identity_data.getLength();
+        for(int i = 0; i<sizeof(uint64_t); i++)
+        {
+            if(int(temp[i]) <= 9)
+                std::cout << "0"; 
+            std::cout << int(temp[i]); 
+        }
+        
         identity_data.PrintIdentity();
-        std::cout << "\nSIGNATURE DATA: " << signature_data.getLength() <<std::endl;
-        std::cout << "DATA: ";
+        *temp = signature_data.getLength();
+        for(int i = 0; i<sizeof(uint64_t); i++)
+        {
+            if(int(temp[i]) <= 9)
+                std::cout << "0"; 
+            std::cout << int(temp[i]); 
+        }
+        delete[] temp;
         signature_data.printSignature();
-        std::cout << std::endl;
     }
 
     auto getLength(){

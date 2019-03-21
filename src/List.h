@@ -79,10 +79,17 @@ class List{
 
     void printListArray()
     {
-        std::cout << "Length is: " << number_of_list_items << std::endl;
+        Byte *temp;
+        temp = new Byte[sizeof(uint64_t)];
+        *temp = number_of_list_items;
+        for(int i = 0; i<sizeof(uint64_t); i++)
+        {
+            std::cout << int(temp[i]); 
+        }
+        delete[] temp;
         for(int i = 0; i < number_of_list_items; i++)
         {
-            std::cout << listItems[i] << " ";
+            std::cout << listItems[i];
         }
     }
 
@@ -92,7 +99,6 @@ class List{
     }
     ~List()
     {
-        std::cout << "List deleted" << std::endl;
         delete[] listItems;
     }
     
@@ -167,12 +173,18 @@ class List<ByteArray>{
 
     void printListArray()
     {
+        Byte *temp;
+        temp = new Byte[sizeof(uint64_t)];
+        *temp = number_of_list_items;
+        for(int i = 0; i<sizeof(uint64_t); i++)
+        {
+            std::cout << int(temp[i]); 
+        }
+        delete[] temp;
         for(int i = 0; i < number_of_list_items; i++)
         {
-            std::cout << "ByteArray[" << i << "]" <<std::endl;
             listItems[i].printByteArray();
         }
-        std::cout << std::endl;
     }
 
     uint64_t getLength()
@@ -251,12 +263,18 @@ class List<Signatory>{
 
     void printListArray()
     {
+        Byte *temp;
+        temp = new Byte[sizeof(uint64_t)];
+        *temp = number_of_list_items;
+        for(int i = 0; i<sizeof(uint64_t); i++)
+        { 
+            std::cout << int(temp[i]); 
+        }
+        delete[] temp;
         for(int i = 0; i < number_of_list_items; i++)
         {
-            std::cout << "SignatoryArray[" << i << "]" <<std::endl;
             listItems[i].printSignatory();
         }
-        std::cout << std::endl;
     }
 
     uint64_t getLength()

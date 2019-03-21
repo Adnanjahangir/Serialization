@@ -78,7 +78,16 @@ class PrimaryTx{
 
     void Print(){
         contract_name.printByteArray();
-        std::cout << "fee: " << fee <<std::endl;
+        Byte *temp;
+        temp = new Byte[sizeof(uint64_t)];
+        *temp = fee;
+        for(int i = 0; i<sizeof(uint64_t); i++)
+        {
+            if(int(temp[i]) <= 9)
+                std::cout << "0"; 
+            std::cout << int(temp[i]); 
+        }
+        delete[] temp;
         resources.printListArray();
     }
     

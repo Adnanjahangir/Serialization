@@ -61,11 +61,9 @@ class SigningTx{
     }
 
     void printSigningTx(){
-        std::cout << "PRIMARY DATA: " <<std::endl;
         primary_data.Print();
 
 
-        std::cout << std::endl << "IDENTITY DATA: " << std::endl;
         identity_data.PrintIdentity();
     }
 
