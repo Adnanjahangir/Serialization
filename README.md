@@ -2,7 +2,7 @@
 
 This library helps you serialize and deserialize data in a specific format described in the document provided i.e. tx_wire_format_doc.pdf and store in some buffer that you provide it with. 
 
-To install the dependencies of these libraries, a Docker file is provided which makes an image of Ubuntu installing all the required components and a container can be created in which you can work on.
+To install the dependencies of these libraries, a Docker file is provided which makes an image of Ubuntu, installing all the required components and a container can be created in which you can work on.
 
 The library has various classes depending on the the type of data format. 
 
@@ -38,10 +38,10 @@ Object1.serialize(Buffer); //This statement will serialize all the data of Objec
 
 
 
-You can pass the serialize() function an index as a second parameter too if you want to serialize data in a buffer from a specific index. In this case you have to make sure that the buffer has enough space to store data after the specific index e.g. If the index you provided is 10 and the length of data is 20 bytes, the buffer should be atleast 30 bytes so that data can be stored. This feature can be used when you want to serialize multiple objects into a single buffer
+You can pass the serialize() function an index as a second parameter also if you want to serialize data in a buffer from a specific index. In this case you have to make sure that the buffer has enough space to store data after the specific index e.g. If the index you provided is 10 and the length of data is 20 bytes, the buffer should be atleast 30 bytes so that data can be stored. This feature can be used when you want to serialize multiple objects into a single buffer
 
 
-Usage of Deserialization function is also through the object in which you want to deserialize the data. e.g. If there is an object created of type "TxWireData" named Object2 and a buffer in which you have the data to be deserialized, you can deserialize it by calling the Object1.deserialize() function and giving one argument which will be a pointer to the buffer which will contains the data. Pointer to Buffer should be of Byte type e.g. if buffer2 contains the data to be deserialized you can use it as
+Usage of Deserialization function is also through the object in which you want to deserialize the data. e.g. If there is an object created of type "TxWireData" named Object2 and a buffer in which you have the data to be deserialized, you can deserialize it by calling the Object1.deserialize() function and giving one argument which will be a pointer to the buffer which contains the data. Pointer to Buffer should be of Byte type e.g. if buffer2 contains the data to be deserialized you can use it as
 
 
 
@@ -49,7 +49,7 @@ Object2.deserialize(buffer2); // this will deserialize the data and store it in 
 
 
 
-Like the serialize function, you can also give the deserialization function a position as a second argument too. This will start deserializing the data from the position you give to it. But in this case you have to be sure that the data after the position you give must be of the type you want to deserialize otherwise it will not work.
+Like the serialize function, you can also give the deserialization function a position as a second argument also. This will start deserializing the data from the position you give to it. But in this case you have to be sure that the data after the position you give must be of the type you want to deserialize otherwise it will not work.
 
 
 
