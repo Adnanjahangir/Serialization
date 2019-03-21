@@ -1,6 +1,6 @@
 # Serialization Library
 
-This library helps you serialize and deserialize data in a specific format described in the document and store in some buffer. 
+This library helps you serialize and deserialize data in a specific format described in the document provided i.e. tx_wire_format_doc.pdf and store in some buffer that you provide it with. 
 
 To install the dependencies of these libraries, a Docker file is provided which makes an image of Ubuntu installing all the required components and a container can be created in which you can work on.
 
