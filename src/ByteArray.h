@@ -26,7 +26,7 @@ class ByteArray{
     ByteArray()
     {
         number_of_bytes = 0;
-        bytes = new Byte[number_of_bytes];
+        bytes = new Byte[number_of_bytes]();
     }
     ByteArray(uint64_t no):number_of_bytes(no)
     {
@@ -51,7 +51,7 @@ class ByteArray{
         }
         delete bytes;
         std::cout << "Enter " << number_of_bytes << " bytes: ";
-        bytes = new Byte [number_of_bytes]; 
+        bytes = new Byte [number_of_bytes](); 
         for(int i = 0; i< number_of_bytes; i++)
         {
             std::cin >> bytes[i];
@@ -65,9 +65,12 @@ class ByteArray{
 
     auto serialize(Byte *buffer, int offset = 0)
     {
+        for(int i=0; i<20; i++)
+            std::cout << int(buffer[i]) << " ";
+        std::cout << std::endl;
+    
         Byte *ptr = buffer+offset;
         memcpy(ptr, &number_of_bytes, sizeof(uint64_t));
-
         for(int i = 0; i < number_of_bytes; i++)
         {
             buffer[(sizeof(uint64_t) + i + offset)] = bytes[i] ;
@@ -79,8 +82,9 @@ class ByteArray{
     {
         Byte *ptr = buffer+position;
         memcpy(&number_of_bytes, ptr, sizeof(uint64_t));
-        delete bytes;
-        bytes = new Byte [number_of_bytes];
+        
+        delete[] bytes;
+        bytes = new Byte [number_of_bytes]();
         for(int i = 0; i < number_of_bytes; i++)
         {
             bytes[i] = buffer[i + sizeof(uint64_t) + position];
@@ -100,7 +104,6 @@ class ByteArray{
 
     bool operator ==(ByteArray obj2)
     {
-        bool isEqual = true;
         if(getLength() != obj2.getLength())
         {
             return false;

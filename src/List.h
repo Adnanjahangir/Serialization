@@ -77,6 +77,22 @@ class List{
         }
     }
     
+    bool operator ==(List obj2)
+    {
+        if(getLength() != obj2.getLength())
+        {
+            return false;
+        }
+
+        for(int i = 0; i < number_of_list_items; i++)
+        {
+            if(listItems[i] != obj2.listItems[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     void printListArray()
     {
@@ -212,7 +228,7 @@ class List<Signatory>{
     {
         number_of_list_items = 0;
         sizeforserializtion = 0;
-        listItems = new Signatory;
+        listItems = new Signatory[number_of_list_items];
     }
     
     void setListItems()
@@ -250,17 +266,23 @@ class List<Signatory>{
 
     void deserialize(Byte *buffer,int position = 0)
     {
+        
         uint64_t index = position;
-        delete listItems;
-        number_of_list_items = buffer[index];
+        //delete[] listItems;
+        Byte *ptr1 = buffer+index;
+        
+        memcpy(&number_of_list_items, ptr1, sizeof(number_of_list_items));
+        //number_of_list_items = buffer[index];
         index = index + sizeof(uint64_t);
         listItems = new Signatory[number_of_list_items];
+        
         for(int i = 0; i< number_of_list_items; i++)
         {
             listItems[i].deserialize(buffer, index);
             index = index + listItems[i].getLength();
         }
-        sizeforserializtion = index-position;        
+        sizeforserializtion = index-position;      
+        /**/ 
     }
 
     void printListArray()
