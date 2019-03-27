@@ -82,7 +82,6 @@ class ByteArray{
         memcpy(&number_of_bytes, ptr, sizeof(uint64_t));
         //for(int i = 0; i<(sizeof(uint64_t)); i++)
         //    std::cout << int(buffer[i+position]) << " ";
-        std::cout << number_of_bytes << std::endl;
         delete bytes;
         bytes = new Byte [number_of_bytes];
         for(int i = 0; i < number_of_bytes; i++)
@@ -93,11 +92,11 @@ class ByteArray{
     
     void printByteArray()
     {
-        std::cout << number_of_bytes << std::endl;
+        std::cout  << (number_of_bytes) ;
         
         for(int i = 0; i < number_of_bytes; i++)
         {
-            std::cout << std::hex  << int(bytes[i]) ;
+            std::cout  << int(bytes[i]) ;
         }
         
     }
@@ -107,7 +106,6 @@ class ByteArray{
         bool isEqual = true;
         if(getLength() != obj2.getLength())
         {
-            std:: cout << "HELLO";
             return false;
         }
 

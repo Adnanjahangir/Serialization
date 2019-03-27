@@ -52,24 +52,30 @@ class PrimaryTx{
         
         index = offset + temp;
 
+        Byte *ptr = buffer + index;
+        memcpy(ptr, &fee, sizeof(fee));
+        //buffer[index] = fee;
+        index = index + sizeof(fee);
 
-        buffer[index] = fee;
-        index = index + sizeof(uint64_t);
-        
         temp = resources.serialize(buffer, index);
         index = index + temp;
-        length = index;
         return length;
     }
 
     void deserialize(Byte *buffer, int position=0)
     {
+        
         uint64_t index = position;
         contract_name.deserialize(buffer, position);
         index = index + contract_name.getLength();
-        fee = buffer[index];
+        Byte *ptr = buffer+index;
+        memcpy(&fee, ptr, sizeof(fee));
+        
+        //fee = buffer[index];
+        
         index = index + sizeof(uint64_t);
         resources.deserialize(buffer, index);
+        
         //index += resources.getLength();
         length = contract_name.getLength() + sizeof(uint64_t) + resources.getLength();
 
@@ -80,14 +86,7 @@ class PrimaryTx{
         contract_name.printByteArray();
         Byte *temp;
         temp = new Byte[sizeof(uint64_t)];
-        *temp = fee;
-        for(int i = 0; i<sizeof(uint64_t); i++)
-        {
-            if(int(temp[i]) <= 9)
-                std::cout << "0"; 
-            std::cout << int(temp[i]); 
-        }
-        delete[] temp;
+        std::cout << fee ;
         resources.printListArray();
     }
     
