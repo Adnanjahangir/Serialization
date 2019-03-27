@@ -235,18 +235,17 @@ class List<Signatory>{
 
     auto serialize(Byte *buffer, int offset = 0)
     {
-        buffer[offset] = number_of_list_items;
+        Byte *ptr = buffer+offset;
+        memcpy(ptr, &number_of_list_items, sizeof(number_of_list_items));
         uint64_t index = offset + sizeof(uint64_t);
         uint64_t temp = 0;
         for(int i = 0; i<number_of_list_items; i++)
         {
-            //std::cout << "Index: " << index << " i: " << i << std::endl;
             temp = listItems[i].serialize(buffer, index);
             index = index + temp;            
 
         }
         return sizeforserializtion;
-        
     }
 
     void deserialize(Byte *buffer,int position = 0)

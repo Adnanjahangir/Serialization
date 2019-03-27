@@ -67,8 +67,7 @@ class ByteArray{
     {
         Byte *ptr = buffer+offset;
         memcpy(ptr, &number_of_bytes, sizeof(uint64_t));
-        //buffer[offset] = number_of_bytes;
-        
+
         for(int i = 0; i < number_of_bytes; i++)
         {
             buffer[(sizeof(uint64_t) + i + offset)] = bytes[i] ;
@@ -80,8 +79,6 @@ class ByteArray{
     {
         Byte *ptr = buffer+position;
         memcpy(&number_of_bytes, ptr, sizeof(uint64_t));
-        //for(int i = 0; i<(sizeof(uint64_t)); i++)
-        //    std::cout << int(buffer[i+position]) << " ";
         delete bytes;
         bytes = new Byte [number_of_bytes];
         for(int i = 0; i < number_of_bytes; i++)

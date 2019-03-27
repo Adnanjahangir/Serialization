@@ -54,7 +54,6 @@ class PrimaryTx{
 
         Byte *ptr = buffer + index;
         memcpy(ptr, &fee, sizeof(fee));
-        //buffer[index] = fee;
         index = index + sizeof(fee);
 
         temp = resources.serialize(buffer, index);
@@ -70,13 +69,10 @@ class PrimaryTx{
         index = index + contract_name.getLength();
         Byte *ptr = buffer+index;
         memcpy(&fee, ptr, sizeof(fee));
-        
-        //fee = buffer[index];
-        
+                
         index = index + sizeof(uint64_t);
         resources.deserialize(buffer, index);
         
-        //index += resources.getLength();
         length = contract_name.getLength() + sizeof(uint64_t) + resources.getLength();
 
     }
