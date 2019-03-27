@@ -67,7 +67,6 @@ class ByteArray{
     {
         Byte *ptr = buffer+offset;
         memcpy(ptr, &number_of_bytes, sizeof(uint64_t));
-        delete ptr;
         //buffer[offset] = number_of_bytes;
         
         for(int i = 0; i < number_of_bytes; i++)
@@ -81,8 +80,10 @@ class ByteArray{
     {
         Byte *ptr = buffer+position;
         memcpy(&number_of_bytes, ptr, sizeof(uint64_t));
+        //for(int i = 0; i<(sizeof(uint64_t)); i++)
+        //    std::cout << int(buffer[i+position]) << " ";
+        std::cout << number_of_bytes << std::endl;
         delete bytes;
-        delete ptr;
         bytes = new Byte [number_of_bytes];
         for(int i = 0; i < number_of_bytes; i++)
         {
@@ -92,14 +93,8 @@ class ByteArray{
     
     void printByteArray()
     {
-        Byte *temp;
-        temp = new Byte[sizeof(uint64_t)];
-        *temp = number_of_bytes;
-        for(int i = 0; i<sizeof(uint64_t); i++)
-        {
-            std::cout << std::hex << int(temp[i]); 
-        }
-        delete[] temp;
+        std::cout << number_of_bytes << std::endl;
+        
         for(int i = 0; i < number_of_bytes; i++)
         {
             std::cout << std::hex  << int(bytes[i]) ;

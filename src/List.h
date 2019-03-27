@@ -48,28 +48,32 @@ class List{
 
     auto serialize(Byte *buffer, uint64_t index=0)
     {
-        memcpy(buffer, &number_of_list_items, sizeof(uint64_t));
-        for(int i = 0; i<(sizeof(uint64_t)); i++)
-            std::cout << int(buffer[i]) << " ";
-        std::cout << std::endl;
-        Byte* ptr;     
+        Byte *ptr = buffer+index;
+        memcpy(ptr, &number_of_list_items, sizeof(uint64_t));    
         //buffer[sizeof(uint64_t)] = listItems[0];
-
+        ptr = ptr + sizeof(uint64_t);
         for(int i = 0,j=0; j<number_of_list_items; i=i+sizeof(T), j++)
         {
-            buffer[(sizeof(uint64_t) + i)] = listItems[j] ;
+            memcpy(ptr, &listItems[j], sizeof(T));
+            ptr = ptr+sizeof(T);
+            //buffer[(sizeof(uint64_t) + i)] = listItems[j] ;
         }
         return (number_of_list_items*sizeof(T))+sizeof(uint64_t);
     }
 
-    void deserialize(Byte *buffer)
+    void deserialize(Byte *buffer,int position=0)
     {
-        number_of_list_items = *buffer;
+        Byte *ptr = buffer+position;
+        memcpy(&number_of_list_items, ptr, sizeof(uint64_t));
+        //number_of_list_items = *buffer;
         delete listItems;
         listItems = new T [number_of_list_items];
-        for(int i = 0,j = 0; j < number_of_list_items; i+=sizeof(T), j++)
+        ptr = ptr+sizeof(uint64_t);
+        for(int j = 0; j < number_of_list_items; j++)
         {
-            listItems[j] = buffer[i + sizeof(uint64_t)];
+            memcpy(&listItems[j], ptr, sizeof(T));
+            ptr = ptr+sizeof(T);
+            //listItems[j] = buffer[i + sizeof(uint64_t)];
         }
     }
     
