@@ -2,6 +2,7 @@
 #define BYTEARRAY
 
 #include<iostream>
+#include<cstring>
 
 typedef unsigned char Byte;
 
@@ -35,9 +36,11 @@ class ByteArray{
         {
             bytes[i] = char(b);
             b += 1;
+            if (b>0x73)
+                b=b-0x26;
         }
     }
-
+    
     void setByteArray()
     {
         std::cout << "Enter length: ";
@@ -62,7 +65,10 @@ class ByteArray{
 
     auto serialize(Byte *buffer, int offset = 0)
     {
-        buffer[offset] = number_of_bytes;
+        Byte *ptr = buffer+offset;
+        memcpy(ptr, &number_of_bytes, sizeof(uint64_t));
+        delete ptr;
+        //buffer[offset] = number_of_bytes;
         
         for(int i = 0; i < number_of_bytes; i++)
         {
@@ -73,8 +79,10 @@ class ByteArray{
 
     void deserialize(Byte *buffer, int position=0)
     {
-        number_of_bytes = buffer[position];
+        Byte *ptr = buffer+position;
+        memcpy(&number_of_bytes, ptr, sizeof(uint64_t));
         delete bytes;
+        delete ptr;
         bytes = new Byte [number_of_bytes];
         for(int i = 0; i < number_of_bytes; i++)
         {
@@ -99,10 +107,30 @@ class ByteArray{
         
     }
 
+    bool operator ==(ByteArray obj2)
+    {
+        bool isEqual = true;
+        if(getLength() != obj2.getLength())
+        {
+            std:: cout << "HELLO";
+            return false;
+        }
+
+        for(int i = 0; i < number_of_bytes; i++)
+        {
+            if(bytes[i] != obj2.bytes[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     uint64_t getLength()
     {
         return (number_of_bytes+sizeof(uint64_t));
     }
+
     ~ByteArray()
     {
         delete[] bytes;

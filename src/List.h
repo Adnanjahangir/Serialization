@@ -1,8 +1,6 @@
 #ifndef LIST
 #define LIST
 
-
-
 #include"Signatory.h"
 #include<cstring>
 
@@ -51,9 +49,11 @@ class List{
     auto serialize(Byte *buffer, uint64_t index=0)
     {
         memcpy(buffer, &number_of_list_items, sizeof(uint64_t));
-        
+        for(int i = 0; i<(sizeof(uint64_t)); i++)
+            std::cout << int(buffer[i]) << " ";
+        std::cout << std::endl;
         Byte* ptr;     
-        buffer[sizeof(uint64_t)] = listItems[0];
+        //buffer[sizeof(uint64_t)] = listItems[0];
 
         for(int i = 0,j=0; j<number_of_list_items; i=i+sizeof(T), j++)
         {
@@ -78,6 +78,7 @@ class List{
     {
         Byte *temp;
         temp = new Byte[sizeof(uint64_t)];
+        std::cout << std::dec << number_of_list_items << std::endl;
         *temp = number_of_list_items;
         for(int i = 0; i<sizeof(uint64_t); i++)
         {
