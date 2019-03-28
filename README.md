@@ -2,7 +2,7 @@
 
 This library helps you serialize and deserialize data in a specific format described in the document provided i.e. tx_wire_format_doc.pdf and store in some buffer that you provide it with. 
 
-To install the dependencies of these libraries, a Docker file is provided which makes an image of Ubuntu, installing all the required components and a container can be created in which you can work on.
+To install the dependencies of these libraries, a Docker file is provided which makes an image of Ubuntu, installing all the required components and a container can be created in which you can work on. You have to add a main.cpp file in the src folder inside your docker container to compile and make an executable.
 
 The library has various classes depending on the the type of data format. 
 
