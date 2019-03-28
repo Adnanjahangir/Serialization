@@ -15,4 +15,3 @@ include_directories("${VENDOR_SOURCE_DIR}/googletest/googletest/include")
 set(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
 add_executable(main ${SOURCES})
 
-target_link_libraries(main gtest)

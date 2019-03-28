@@ -1,9 +1,5 @@
 #include"gtest/gtest.h"
-#include"ByteArray.h"
-#include"PrimaryTx.h"
-#include"SigningTx.h"
-#include"Signatory.h"
-#include"List.h"
+#include"TxWireData.h"
 
 
 TEST(bytearray, serializefunc)
@@ -23,7 +19,7 @@ TEST(bytearray, serializefunc)
     temp.serialize(buffer2);
     for(int i = 0; i < 11; i++)
     {
-        EXPECT_EQ(buffer[i], buffer2[i]);
+        ASSERT_EQ(buffer[i], buffer2[i]);
     }
 
     delete[] buffer;
@@ -43,7 +39,7 @@ TEST(bytearray, deserializefunc)
     std::cout << std::endl;
     ByteArray temp2;
     temp2.deserialize(buffer);
-    EXPECT_TRUE((temp == temp2));
+    ASSERT_TRUE((temp == temp2));
     delete buffer;
 }
 
@@ -63,7 +59,7 @@ TEST(listTest, serializefuncgeneral)
     temp.serialize(buffer2);
     for(int i = 0; i < 20; i++)
     {
-        EXPECT_EQ(buffer[i], buffer2[i]);
+        ASSERT_EQ(buffer[i], buffer2[i]);
     }
 
     delete[] buffer;
@@ -82,7 +78,7 @@ TEST(listTest, deserializefuncgeneral)
     buffer[16] = int(102);
     List<int> temp2;
     temp2.deserialize(buffer);
-    EXPECT_TRUE((temp==temp2));
+    ASSERT_TRUE((temp==temp2));
     delete buffer;
 }
 
@@ -104,7 +100,7 @@ TEST(listTest, ByteArray)
     l1.serialize(buffer2);
     
     for(int i = 0; i<28; i++)
-        EXPECT_EQ(buffer[i], buffer2[i]);
+        ASSERT_EQ(buffer[i], buffer2[i]);
 
     delete[] buffer;
     delete[] buffer2;
@@ -139,14 +135,14 @@ TEST(listTest, Signatory)
     buffer[78] = int(2);
     buffer[86] = 'a';
     buffer[87] = 'b';
-        List<Signatory> l1;
+    List<Signatory> l1;
     l1.deserialize(buffer);
     Byte *buffer2;
     buffer2 = new Byte[88]();
     l1.serialize(buffer2);
 
     for(int i = 0; i<88; i++)
-        EXPECT_EQ(buffer[i], buffer2[i]);
+        ASSERT_EQ(buffer[i], buffer2[i]);
 
     delete[] buffer;
     delete[] buffer2;
@@ -175,7 +171,7 @@ TEST(signatureTest, both)
     s1.serialize(buffer2);
     
     for(int i = 0; i<20; i++)
-       EXPECT_EQ(buffer[i], buffer2[i]);
+       ASSERT_EQ(buffer[i], buffer2[i]);
        
     delete[] buffer2; 
     delete[] buffer;
@@ -205,7 +201,7 @@ TEST(identityTest, both)
     s1.serialize(buffer2);
     
     for(int i = 0; i<20; i++)
-       EXPECT_EQ(buffer[i], buffer2[i]);
+       ASSERT_EQ(buffer[i], buffer2[i]);
        
     delete[] buffer2; 
     delete[] buffer;
@@ -235,7 +231,7 @@ TEST(primaryTxTest, both)
     buffer2 = new Byte[d1.getLength()]();
     d1.serialize(buffer2);
     for(int i = 0; i<46; i++)
-       EXPECT_EQ(buffer[i], buffer2[i]);
+       ASSERT_EQ(buffer[i], buffer2[i]);
        
     delete[] buffer2; 
     delete[] buffer;
@@ -270,7 +266,7 @@ TEST(signingTxTest, both)
     buffer2 = new Byte[st1.getLength()]();
     st1.serialize(buffer2);
     for(int i = 0; i<66; i++)
-       EXPECT_EQ(buffer[i], buffer2[i]);
+       ASSERT_EQ(buffer[i], buffer2[i]);
        
     delete[] buffer2; 
     delete[] buffer;
@@ -278,7 +274,56 @@ TEST(signingTxTest, both)
 }
 
 TEST(txWiredataTest, both)
-{
+{   
+    Byte *buffer;
+    buffer = new Byte[134]();
+    buffer[0] = int(2);
+    buffer[8] = 'a';
+    buffer[9] = 'b';
+    buffer[10] = int(3);
+    buffer[18] = int(2);
+    buffer[26] = int(2);
+    buffer[34] = 'c';
+    buffer[35] = 'd';
+    buffer[36] = int(2);
+    buffer[44] = 'e';
+    buffer[45] = 'f';  
+    buffer[46] = int(2);
+    buffer[54] = int(2);
+    buffer[62] = 'a';
+    buffer[63] = 'b';
+    buffer[64] = int(2);
+    buffer[72] = 'a';
+    buffer[73] = 'b';
+    buffer[74] = int(2);
+    buffer[82] = 'a';
+    buffer[83] = 'b';
+    buffer[84] = int(2);
+    buffer[92] = 'a';
+    buffer[93] = 'b';
+    buffer[94] = int(2);
+    buffer[102] = 'a';
+    buffer[103] = 'b';
+    buffer[104] = int(2);
+    buffer[112] = 'a';
+    buffer[113] = 'b';
+    buffer[114] = int(2);
+    buffer[122] = 'a';
+    buffer[123] = 'b';
+    buffer[124] = int(2);
+    buffer[132] = 'a';
+    buffer[133] = 'b';
+
+    TxWireData dat1;
+    dat1.deserialize(buffer);
+    Byte *buffer2;
+    buffer2 = new Byte[134]();
+    dat1.serialize(buffer2);
+    for(int i = 0; i<66; i++)
+       ASSERT_EQ(buffer[i], buffer2[i]);
+       
+    delete[] buffer2; 
+    delete[] buffer;
 
 }
 
@@ -306,7 +351,7 @@ TEST(signatoryTest, both)
     s1.serialize(buffer2);
     
     for(int i = 0; i<40; i++)
-        EXPECT_EQ(buffer[i], buffer2[i]);
+        ASSERT_EQ(buffer[i], buffer2[i]);
    
     delete[] buffer;
     delete[] buffer2;
@@ -318,41 +363,3 @@ int main(int argc, char* argv[])
     ::testing::InitGoogleTest(&argc,argv);
     return RUN_ALL_TESTS();
 }
-/*
-TEST(list, serializefunc)
-{
-    Byte *buff;
-    buff = new Byte[32];
-    uint64_t x = 3;
-    //*buff = x;
-    for(int i = 0; i<32; i++)
-    {
-        buff[i] = Byte(0x00) ;
-    }
-    *buff = x;
-    buff[8] = double(100);
-    buff[16] = double(101);
-    buff[24] = double(103);
-    for(int i = 0; i<32; i++)
-    {
-        std::cout << int(buff[i]) ;
-    }
-    std::cout <<std::endl;
-    List<double> temp(3);
-    Byte *buffer2;
-    buffer2 = new Byte[temp.getLength()];
-    for(int i = 0; i<32; i++)
-    {
-        buffer2[i] = Byte(0x00) ;
-    }
-    temp.serialize(buffer2);
-    for(int i = 0; i<32; i++)
-    {
-        std::cout << int(buffer2[i]) ;
-    }
-    for(int i = 0; i < 11; i++)
-    {
-        EXPECT_EQ(buff[i], buffer2[i]);
-    }
-}
-*/
