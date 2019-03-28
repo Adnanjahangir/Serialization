@@ -162,12 +162,10 @@ class List<ByteArray>{
     {
         Byte *ptr = buffer+offset;
         memcpy(ptr, &number_of_list_items, sizeof(number_of_list_items));
-        //buffer[offset] = number_of_list_items;
         uint64_t index = offset + sizeof(uint64_t);
         uint64_t temp = 0;
         for(int i = 0; i<number_of_list_items; i++)
         {
-            //std::cout << "Index: " << index << " i: " << i << std::endl;
             temp = listItems[i].serialize(buffer, index);
             index = index + temp;            
 
@@ -179,11 +177,10 @@ class List<ByteArray>{
     void deserialize(Byte *buffer,int position = 0)
     {
         uint64_t index = position;
-        //delete listItems;
+        delete[] listItems;
         Byte *ptr1 = buffer+index;
         
         memcpy(&number_of_list_items, ptr1, sizeof(number_of_list_items));
-        //number_of_list_items = buffer[index];
         index = index + sizeof(uint64_t);
         listItems = new ByteArray[number_of_list_items];
         for(int i = 0; i< number_of_list_items; i++)
@@ -268,11 +265,9 @@ class List<Signatory>{
     {
         
         uint64_t index = position;
-        //delete[] listItems;
         Byte *ptr1 = buffer+index;
         
         memcpy(&number_of_list_items, ptr1, sizeof(number_of_list_items));
-        //number_of_list_items = buffer[index];
         index = index + sizeof(uint64_t);
         listItems = new Signatory[number_of_list_items];
         
@@ -281,20 +276,13 @@ class List<Signatory>{
             listItems[i].deserialize(buffer, index);
             index = index + listItems[i].getLength();
         }
+        
         sizeforserializtion = index-position;      
-        /**/ 
     }
 
     void printListArray()
     {
-        Byte *temp;
-        temp = new Byte[sizeof(uint64_t)];
-        *temp = number_of_list_items;
-        for(int i = 0; i<sizeof(uint64_t); i++)
-        { 
-            std::cout << int(temp[i]); 
-        }
-        delete[] temp;
+        std::cout << number_of_list_items;
         for(int i = 0; i < number_of_list_items; i++)
         {
             listItems[i].printSignatory();

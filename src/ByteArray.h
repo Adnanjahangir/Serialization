@@ -65,10 +65,6 @@ class ByteArray{
 
     auto serialize(Byte *buffer, int offset = 0)
     {
-        for(int i=0; i<20; i++)
-            std::cout << int(buffer[i]) << " ";
-        std::cout << std::endl;
-    
         Byte *ptr = buffer+offset;
         memcpy(ptr, &number_of_bytes, sizeof(uint64_t));
         for(int i = 0; i < number_of_bytes; i++)
@@ -83,7 +79,6 @@ class ByteArray{
         Byte *ptr = buffer+position;
         memcpy(&number_of_bytes, ptr, sizeof(uint64_t));
         
-        delete[] bytes;
         bytes = new Byte [number_of_bytes]();
         for(int i = 0; i < number_of_bytes; i++)
         {

@@ -52,25 +52,8 @@ class Signatory{
     }
     
     void printSignatory(){
-        Byte *temp;
-        temp = new Byte[sizeof(uint64_t)];
-        *temp = identity_data.getLength();
-        for(int i = 0; i<sizeof(uint64_t); i++)
-        {
-            if(int(temp[i]) <= 9)
-                std::cout << "0"; 
-            std::cout << int(temp[i]); 
-        }
         
         identity_data.PrintIdentity();
-        *temp = signature_data.getLength();
-        for(int i = 0; i<sizeof(uint64_t); i++)
-        {
-            if(int(temp[i]) <= 9)
-                std::cout << "0"; 
-            std::cout << int(temp[i]); 
-        }
-        delete[] temp;
         signature_data.printSignature();
     }
 

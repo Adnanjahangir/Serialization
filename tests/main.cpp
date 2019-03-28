@@ -1,5 +1,8 @@
 #include"gtest/gtest.h"
 #include"ByteArray.h"
+#include"PrimaryTx.h"
+#include"SigningTx.h"
+#include"Signatory.h"
 #include"List.h"
 
 
@@ -44,7 +47,7 @@ TEST(bytearray, deserializefunc)
     delete buffer;
 }
 
-TEST(DISABLED_listTest, serializefuncgeneral)
+TEST(listTest, serializefuncgeneral)
 {
     List<int> temp(3);
     Byte *buffer;
@@ -67,7 +70,7 @@ TEST(DISABLED_listTest, serializefuncgeneral)
     delete[] buffer2;
 }
 
-TEST(DISABLED_listTest, deserializefuncgeneral)
+TEST(listTest, deserializefuncgeneral)
 {
     List<int> temp(3);
     Byte *buffer;
@@ -83,7 +86,7 @@ TEST(DISABLED_listTest, deserializefuncgeneral)
     delete buffer;
 }
 
-TEST(DISABLED_listTest, ByteArray)
+TEST(listTest, ByteArray)
 {
     Byte *buffer;
     buffer = new Byte[28]();
@@ -101,6 +104,48 @@ TEST(DISABLED_listTest, ByteArray)
     l1.serialize(buffer2);
     
     for(int i = 0; i<28; i++)
+        EXPECT_EQ(buffer[i], buffer2[i]);
+
+    delete[] buffer;
+    delete[] buffer2;
+}
+
+TEST(listTest, Signatory)
+{
+    Byte *buffer;
+    buffer = new Byte[88]();
+    buffer[0] = int(2);
+    buffer[8] = int(2);
+    buffer[16] = 'a';
+    buffer[17] = 'b';
+    buffer[18] = int(2);
+    buffer[26] = 'a';
+    buffer[27] = 'b';
+    buffer[28] = int(2);
+    buffer[36] = 'a';
+    buffer[37] = 'b';
+    buffer[38] = int(2);
+    buffer[46] = 'a';
+    buffer[47] = 'b';
+    buffer[48] = int(2);
+    buffer[56] = 'a';
+    buffer[57] = 'b';
+    buffer[58] = int(2);
+    buffer[66] = 'a';
+    buffer[67] = 'b';
+    buffer[68] = int(2);
+    buffer[76] = 'a';
+    buffer[77] = 'b';
+    buffer[78] = int(2);
+    buffer[86] = 'a';
+    buffer[87] = 'b';
+        List<Signatory> l1;
+    l1.deserialize(buffer);
+    Byte *buffer2;
+    buffer2 = new Byte[88]();
+    l1.serialize(buffer2);
+
+    for(int i = 0; i<88; i++)
         EXPECT_EQ(buffer[i], buffer2[i]);
 
     delete[] buffer;
@@ -137,55 +182,136 @@ TEST(signatureTest, both)
 
 }
 
-/*
-TEST(listTest, SignatoryArray)
+TEST(identityTest, both)
 {
+    Identity s1;
     Byte *buffer;
-    buffer = new Byte[88]();
+    buffer = new Byte[25]();
     buffer[0] = int(2);
-    buffer[8] = int(2);
-    buffer[16] = 'a';
-    buffer[17] = 'b';
-    buffer[18] = int(2);
-    buffer[26] = 'c';
-    buffer[27] = 'd';
-    buffer[28] = int(2);
-    buffer[36] = 'e';
-    buffer[37] = 'f';
-    buffer[38] = int(2);
-    buffer[46] = 'g';
-    buffer[47] = 'h';
-    buffer[48] = int(2);
-    buffer[56] = 'a';
-    buffer[57] = 'b';
-    buffer[58] = int(2);
-    buffer[66] = 'c';
-    buffer[67] = 'd';
-    buffer[78] = int(2);
-    buffer[76] = 'e';
-    buffer[77] = 'f';
-    buffer[88] = int(2);
-    buffer[86] = 'g';
-    buffer[87] = 'h';
-    /*
-    for(int i=0; i<88; i++)
-        std::cout << int(buffer[i]) << " ";
+    buffer[8] = 'a';
+    buffer[9] = 'b';
+    buffer[10] = int(2);
+    buffer[18] = 'c';
+    buffer[19] = 'd';
+    
+    
 
-    List<Signatory> l1;
-    */
-    //l1.deserialize(buffer);
-    /*
+    s1.deserialize(buffer);
+    std::cout << std::endl;
     Byte *buffer2;
-    buffer2 = new Byte[88]();
-    l1.serialize(buffer2);
-    l1.printListArray();
     
-    for(int i = 0; i<88; i++)
-        EXPECT_EQ(buffer[i], buffer2[i]);
+    buffer2 = new Byte[25]();
     
+    s1.serialize(buffer2);
+    
+    for(int i = 0; i<20; i++)
+       EXPECT_EQ(buffer[i], buffer2[i]);
+       
+    delete[] buffer2; 
     delete[] buffer;
+    
 }
-*/
+
+TEST(primaryTxTest, both)
+{
+    PrimaryTx d1;
+
+    Byte *buffer;
+    buffer = new Byte[46]();
+    buffer[0] = int(2);
+    buffer[8] = 'a';
+    buffer[9] = 'b';
+    buffer[10] = int(3);
+    buffer[18] = int(2);
+    buffer[26] = int(2);
+    buffer[34] = 'c';
+    buffer[35] = 'd';
+    buffer[36] = int(2);
+    buffer[44] = 'e';
+    buffer[45] = 'f';
+    
+    d1.deserialize(buffer);
+    Byte *buffer2;
+    buffer2 = new Byte[d1.getLength()]();
+    d1.serialize(buffer2);
+    for(int i = 0; i<46; i++)
+       EXPECT_EQ(buffer[i], buffer2[i]);
+       
+    delete[] buffer2; 
+    delete[] buffer;
+
+}
+
+TEST(signingTxTest, both)
+{
+    SigningTx st1;
+    Byte *buffer;
+    buffer = new Byte[66]();
+    buffer[0] = int(2);
+    buffer[8] = 'a';
+    buffer[9] = 'b';
+    buffer[10] = int(3);
+    buffer[18] = int(2);
+    buffer[26] = int(2);
+    buffer[34] = 'c';
+    buffer[35] = 'd';
+    buffer[36] = int(2);
+    buffer[44] = 'e';
+    buffer[45] = 'f';
+
+    buffer[46] = int(2);
+    buffer[54] = 'a';
+    buffer[55] = 'b';
+    buffer[56] = int(2);
+    buffer[64] = 'c';
+    buffer[65] = 'd';
+    st1.deserialize(buffer);
+    Byte *buffer2;
+    buffer2 = new Byte[st1.getLength()]();
+    st1.serialize(buffer2);
+    for(int i = 0; i<66; i++)
+       EXPECT_EQ(buffer[i], buffer2[i]);
+       
+    delete[] buffer2; 
+    delete[] buffer;
+
+}
+
+TEST(txWiredataTest, both)
+{
+
+}
+
+TEST(signatoryTest, both)
+{
+    Signatory s1;
+    Byte *buffer;
+    buffer = new Byte[40]();
+    buffer[0] = int(2);
+    buffer[8] = 'a';
+    buffer[9] = 'b';
+    buffer[10] = int(2);
+    buffer[18] = 'a';
+    buffer[19] = 'b';
+    buffer[20] = int(2);
+    buffer[28] = 'a';
+    buffer[29] = 'b';
+    buffer[30] = int(2);
+    buffer[38] = 'a';
+    buffer[39] = 'b';
+
+    s1.deserialize(buffer);
+    Byte *buffer2;
+    buffer2 = new Byte[40]();
+    s1.serialize(buffer2);
+    
+    for(int i = 0; i<40; i++)
+        EXPECT_EQ(buffer[i], buffer2[i]);
+   
+    delete[] buffer;
+    delete[] buffer2;
+}
+
 
 int main(int argc, char* argv[])
 {
