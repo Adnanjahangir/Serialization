@@ -266,7 +266,8 @@ class List<Signatory>{
         
         uint64_t index = position;
         Byte *ptr1 = buffer+index;
-        
+        if(number_of_list_items>=1)
+            delete[] listItems;
         memcpy(&number_of_list_items, ptr1, sizeof(number_of_list_items));
         index = index + sizeof(uint64_t);
         listItems = new Signatory[number_of_list_items];

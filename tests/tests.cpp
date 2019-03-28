@@ -19,7 +19,7 @@ TEST(bytearray, serializefunc)
     temp.serialize(buffer2);
     for(int i = 0; i < 11; i++)
     {
-        ASSERT_EQ(buffer[i], buffer2[i]);
+        ASSERT_EQ(buffer[i], buffer2[i]) << "ERROR IN Serialize funtion of ByteArray";
     }
 
     delete[] buffer;
@@ -39,7 +39,7 @@ TEST(bytearray, deserializefunc)
     std::cout << std::endl;
     ByteArray temp2;
     temp2.deserialize(buffer);
-    ASSERT_TRUE((temp == temp2));
+    ASSERT_TRUE((temp == temp2)) << "ERROR IN deSerialize funtion of ByteArray";
     delete buffer;
 }
 
@@ -59,7 +59,7 @@ TEST(listTest, serializefuncgeneral)
     temp.serialize(buffer2);
     for(int i = 0; i < 20; i++)
     {
-        ASSERT_EQ(buffer[i], buffer2[i]);
+        ASSERT_EQ(buffer[i], buffer2[i]) << "ERROR IN Serialize funtion of GeneralListArray";
     }
 
     delete[] buffer;
@@ -78,7 +78,7 @@ TEST(listTest, deserializefuncgeneral)
     buffer[16] = int(102);
     List<int> temp2;
     temp2.deserialize(buffer);
-    ASSERT_TRUE((temp==temp2));
+    ASSERT_TRUE((temp==temp2)) << "ERROR IN deSerialize funtion of GeneralListArray";
     delete buffer;
 }
 
@@ -100,7 +100,7 @@ TEST(listTest, ByteArray)
     l1.serialize(buffer2);
     
     for(int i = 0; i<28; i++)
-        ASSERT_EQ(buffer[i], buffer2[i]);
+        ASSERT_EQ(buffer[i], buffer2[i]) << "ERROR IN LIBRARY: List<ByteArray> ";
 
     delete[] buffer;
     delete[] buffer2;
@@ -142,7 +142,7 @@ TEST(listTest, Signatory)
     l1.serialize(buffer2);
 
     for(int i = 0; i<88; i++)
-        ASSERT_EQ(buffer[i], buffer2[i]);
+        ASSERT_EQ(buffer[i], buffer2[i])<< "ERROR IN LIBRARY: List<Signatory> ";
 
     delete[] buffer;
     delete[] buffer2;
@@ -171,7 +171,7 @@ TEST(signatureTest, both)
     s1.serialize(buffer2);
     
     for(int i = 0; i<20; i++)
-       ASSERT_EQ(buffer[i], buffer2[i]);
+       ASSERT_EQ(buffer[i], buffer2[i]) << "ERROR IN LIBRARY: Signature.h \n";
        
     delete[] buffer2; 
     delete[] buffer;
@@ -201,7 +201,7 @@ TEST(identityTest, both)
     s1.serialize(buffer2);
     
     for(int i = 0; i<20; i++)
-       ASSERT_EQ(buffer[i], buffer2[i]);
+       ASSERT_EQ(buffer[i], buffer2[i])<< "ERROR IN LIBRARY: Identity.h \n";
        
     delete[] buffer2; 
     delete[] buffer;
@@ -231,7 +231,7 @@ TEST(primaryTxTest, both)
     buffer2 = new Byte[d1.getLength()]();
     d1.serialize(buffer2);
     for(int i = 0; i<46; i++)
-       ASSERT_EQ(buffer[i], buffer2[i]);
+       ASSERT_EQ(buffer[i], buffer2[i])<< "ERROR IN LIBRARY: primaryTx.h \n";
        
     delete[] buffer2; 
     delete[] buffer;
@@ -266,11 +266,41 @@ TEST(signingTxTest, both)
     buffer2 = new Byte[st1.getLength()]();
     st1.serialize(buffer2);
     for(int i = 0; i<66; i++)
-       ASSERT_EQ(buffer[i], buffer2[i]);
+       ASSERT_EQ(buffer[i], buffer2[i])<< "ERROR IN LIBRARY: SigningTx.h \n";
        
     delete[] buffer2; 
     delete[] buffer;
 
+}
+
+TEST(signatoryTest, both)
+{
+    Signatory s1;
+    Byte *buffer;
+    buffer = new Byte[40]();
+    buffer[0] = int(2);
+    buffer[8] = 'a';
+    buffer[9] = 'b';
+    buffer[10] = int(2);
+    buffer[18] = 'a';
+    buffer[19] = 'b';
+    buffer[20] = int(2);
+    buffer[28] = 'a';
+    buffer[29] = 'b';
+    buffer[30] = int(2);
+    buffer[38] = 'a';
+    buffer[39] = 'b';
+
+    s1.deserialize(buffer);
+    Byte *buffer2;
+    buffer2 = new Byte[40]();
+    s1.serialize(buffer2);
+    
+    for(int i = 0; i<40; i++)
+        ASSERT_EQ(buffer[i], buffer2[i])<< "ERROR IN LIBRARY: Signatory.h \n";
+   
+    delete[] buffer;
+    delete[] buffer2;
 }
 
 TEST(txWiredataTest, both)
@@ -320,43 +350,12 @@ TEST(txWiredataTest, both)
     buffer2 = new Byte[134]();
     dat1.serialize(buffer2);
     for(int i = 0; i<66; i++)
-       ASSERT_EQ(buffer[i], buffer2[i]);
+       ASSERT_EQ(buffer[i], buffer2[i])<< "ERROR IN LIBRARY: TxWireData.h \n";
        
     delete[] buffer2; 
     delete[] buffer;
 
 }
-
-TEST(signatoryTest, both)
-{
-    Signatory s1;
-    Byte *buffer;
-    buffer = new Byte[40]();
-    buffer[0] = int(2);
-    buffer[8] = 'a';
-    buffer[9] = 'b';
-    buffer[10] = int(2);
-    buffer[18] = 'a';
-    buffer[19] = 'b';
-    buffer[20] = int(2);
-    buffer[28] = 'a';
-    buffer[29] = 'b';
-    buffer[30] = int(2);
-    buffer[38] = 'a';
-    buffer[39] = 'b';
-
-    s1.deserialize(buffer);
-    Byte *buffer2;
-    buffer2 = new Byte[40]();
-    s1.serialize(buffer2);
-    
-    for(int i = 0; i<40; i++)
-        ASSERT_EQ(buffer[i], buffer2[i]);
-   
-    delete[] buffer;
-    delete[] buffer2;
-}
-
 
 int main(int argc, char* argv[])
 {
