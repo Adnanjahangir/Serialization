@@ -5,10 +5,10 @@ enable_testing()
 
 
 include_directories("${VENDOR_SOURCE_DIR}/googletest/googletest/include")
-add_executable(test tests.cpp)
-target_link_libraries(test gtest)
+add_executable(test_all tests.cpp)
+target_link_libraries(test_all gtest)
 
 add_test(
     NAME AllTests
-    COMMAND test
+    COMMAND test_all
 )
