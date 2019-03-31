@@ -13,7 +13,7 @@ class List{
     List()
     {
         number_of_list_items = 0;
-        listItems = new T;
+        //listItems = new T;
     }
     List(uint64_t no):number_of_list_items(no)
     {
@@ -96,15 +96,9 @@ class List{
 
     void printListArray()
     {
-        Byte *temp;
-        temp = new Byte[sizeof(uint64_t)];
+        
         std::cout << std::dec << number_of_list_items << std::endl;
-        *temp = number_of_list_items;
-        for(int i = 0; i<sizeof(uint64_t); i++)
-        {
-            std::cout << int(temp[i]); 
-        }
-        delete[] temp;
+        
         for(int i = 0; i < number_of_list_items; i++)
         {
             std::cout<< listItems[i];
@@ -133,7 +127,7 @@ class List<ByteArray>{
     {
         number_of_list_items = 0;
         sizeforserializtion = 0;
-        listItems = new ByteArray[number_of_list_items];
+        listItems = NULL;
     }
     
     void setListItems()
@@ -160,7 +154,8 @@ class List<ByteArray>{
 
     auto serialize(Byte *buffer, int offset = 0)
     {
-        Byte *ptr = buffer+offset;
+        Byte *ptr;
+        ptr = buffer+offset;
         memcpy(ptr, &number_of_list_items, sizeof(number_of_list_items));
         uint64_t index = offset + sizeof(uint64_t);
         uint64_t temp = 0;
@@ -171,13 +166,15 @@ class List<ByteArray>{
 
         }
         return sizeforserializtion;
+        delete ptr;
         
     }
 
     void deserialize(Byte *buffer,int position = 0)
     {
         uint64_t index = position;
-        delete[] listItems;
+        if(listItems)
+            delete[] listItems;
         Byte *ptr1 = buffer+index;
         
         memcpy(&number_of_list_items, ptr1, sizeof(number_of_list_items));
@@ -194,8 +191,6 @@ class List<ByteArray>{
 
     void printListArray()
     {
-        Byte *temp;
-        temp = new Byte[sizeof(uint64_t)];
         std::cout << number_of_list_items;
         for(int i = 0; i < number_of_list_items; i++)
         {
@@ -225,7 +220,7 @@ class List<Signatory>{
     {
         number_of_list_items = 0;
         sizeforserializtion = 0;
-        listItems = new Signatory[number_of_list_items];
+        //listItems = new Signatory[number_of_list_items];
     }
     
     void setListItems()
@@ -254,6 +249,7 @@ class List<Signatory>{
         uint64_t temp = 0;
         for(int i = 0; i<number_of_list_items; i++)
         {
+            std::cout << "INDEX: " <<index <<std::endl;
             temp = listItems[i].serialize(buffer, index);
             index = index + temp;            
 
@@ -279,6 +275,7 @@ class List<Signatory>{
         }
         
         sizeforserializtion = index-position;      
+        
     }
 
     void printListArray()

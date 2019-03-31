@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION "3.6")
 project(miniProject)
-
+set(CMAKE_CONFIGURATION_TYPES "Debug" CACHE STRING "" FORCE)
 
 include_directories("${CMAKE_SOURCE_DIR}/src")
 add_subdirectory("${CMAKE_SOURCE_DIR}/tests")        # for GMockCatchListener.h
 
 set(VENDOR_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdparty")
+
+#set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -lasan -fno-omit-frame-pointer -fsanitize=address")
+
 
 ## google test configuration
 add_subdirectory("${VENDOR_SOURCE_DIR}/googletest")

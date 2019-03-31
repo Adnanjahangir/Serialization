@@ -26,11 +26,11 @@ class ByteArray{
     ByteArray()
     {
         number_of_bytes = 0;
-        bytes = new Byte[number_of_bytes]();
+        bytes = NULL;
     }
     ByteArray(uint64_t no):number_of_bytes(no)
     {
-        bytes = new Byte[number_of_bytes];
+        bytes = new Byte[number_of_bytes]();
         auto b = 0x47;  
         for(int i = 0; i<number_of_bytes; i++)
         {
@@ -77,9 +77,10 @@ class ByteArray{
     void deserialize(Byte *buffer, int position=0)
     {
         Byte *ptr = buffer+position;
-        if(number_of_bytes>=1)
-            delete[] bytes;
         memcpy(&number_of_bytes, ptr, sizeof(uint64_t));
+        
+        if(bytes)
+            delete[] bytes;
         bytes = new Byte [number_of_bytes]();
         for(int i = 0; i < number_of_bytes; i++)
         {
@@ -93,7 +94,7 @@ class ByteArray{
         
         for(int i = 0; i < number_of_bytes; i++)
         {
-            std::cout  << int(bytes[i]) ;
+            std::cout  << int(bytes[i]) << " ";
         }
         
     }
