@@ -52,13 +52,11 @@ class List{
     {
         Byte *ptr = buffer+index;
         memcpy(ptr, &number_of_list_items, sizeof(uint64_t));    
-        //buffer[sizeof(uint64_t)] = listItems[0];
         ptr = ptr + sizeof(uint64_t);
         for(int i = 0,j=0; j<number_of_list_items; i=i+sizeof(T), j++)
         {
             memcpy(ptr, &listItems[j], sizeof(T));
             ptr = ptr+sizeof(T);
-            //buffer[(sizeof(uint64_t) + i)] = listItems[j] ;
         }
         return (number_of_list_items*sizeof(T))+sizeof(uint64_t);
     }
@@ -67,7 +65,6 @@ class List{
     {
         Byte *ptr = buffer+position;
         memcpy(&number_of_list_items, ptr, sizeof(uint64_t));
-        //number_of_list_items = *buffer;
         if(listItems)
             delete[] listItems;
         listItems = new T [number_of_list_items];
@@ -76,7 +73,6 @@ class List{
         {
             memcpy(&listItems[j], ptr, sizeof(T));
             ptr = ptr+sizeof(T);
-            //listItems[j] = buffer[i + sizeof(uint64_t)];
         }
     }
     
@@ -223,7 +219,7 @@ class List<Signatory>{
     {
         number_of_list_items = 0;
         sizeforserializtion = 0;
-        //listItems = new Signatory[number_of_list_items];
+        listItems = NULL;
     }
     
     void setListItems()
@@ -261,10 +257,9 @@ class List<Signatory>{
 
     void deserialize(Byte *buffer,int position = 0)
     {
-        
         uint64_t index = position;
         Byte *ptr1 = buffer+index;
-        if(number_of_list_items>=1)
+        if(listItems)
             delete[] listItems;
         memcpy(&number_of_list_items, ptr1, sizeof(number_of_list_items));
         index = index + sizeof(uint64_t);
