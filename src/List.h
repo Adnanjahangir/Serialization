@@ -13,11 +13,11 @@ class List{
     List()
     {
         number_of_list_items = 0;
-        //listItems = new T;
+        listItems = new T[number_of_list_items]();
     }
     List(uint64_t no):number_of_list_items(no)
     {
-        listItems = new T[number_of_list_items];
+        listItems = new T[number_of_list_items]();
         auto x = 100;
         for(int i = 0; i<number_of_list_items; i++)
         {
@@ -34,8 +34,10 @@ class List{
         {
             throw MyException();
         }
-        delete listItems;
-        listItems = new T [number_of_list_items]; 
+        if (listItems){
+            delete[] listItems;
+        }
+        listItems = new T [number_of_list_items](); 
         for(int i = 0; i< number_of_list_items; i++)
         {
             std::cin >> listItems[i];
@@ -66,7 +68,8 @@ class List{
         Byte *ptr = buffer+position;
         memcpy(&number_of_list_items, ptr, sizeof(uint64_t));
         //number_of_list_items = *buffer;
-        delete listItems;
+        if(listItems)
+            delete[] listItems;
         listItems = new T [number_of_list_items];
         ptr = ptr+sizeof(uint64_t);
         for(int j = 0; j < number_of_list_items; j++)
@@ -77,7 +80,7 @@ class List{
         }
     }
     
-    bool operator ==(List obj2)
+    bool operator ==(List &obj2)
     {
         if(getLength() != obj2.getLength())
         {
@@ -249,7 +252,6 @@ class List<Signatory>{
         uint64_t temp = 0;
         for(int i = 0; i<number_of_list_items; i++)
         {
-            std::cout << "INDEX: " <<index <<std::endl;
             temp = listItems[i].serialize(buffer, index);
             index = index + temp;            
 

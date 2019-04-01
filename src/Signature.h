@@ -59,7 +59,6 @@ class Signature{
     }
     ~Signature()
     {
-
     }
 
 };

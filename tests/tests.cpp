@@ -36,11 +36,10 @@ TEST(bytearray, deserializefunc)
     buffer[8] = char(0x47);
     buffer[9] = char(0x48);
     buffer[10] = char(0x49);
-    std::cout << std::endl;
     ByteArray temp2;
     temp2.deserialize(buffer);
     ASSERT_TRUE((temp == temp2)) << "ERROR IN deSerialize funtion of ByteArray";
-    delete buffer;
+    delete[] buffer;
 }
 
 TEST(listTest, serializefuncgeneral)
@@ -79,7 +78,7 @@ TEST(listTest, deserializefuncgeneral)
     List<int> temp2;
     temp2.deserialize(buffer);
     ASSERT_TRUE((temp==temp2)) << "ERROR IN deSerialize funtion of GeneralListArray";
-    delete buffer;
+    delete[] buffer;
 }
 
 TEST(listTest, ByteArray)
@@ -163,7 +162,6 @@ TEST(signatureTest, both)
     
 
     s1.deserialize(buffer);
-    std::cout << std::endl;
     Byte *buffer2;
     
     buffer2 = new Byte[25]();
@@ -193,7 +191,6 @@ TEST(identityTest, both)
     
 
     s1.deserialize(buffer);
-    std::cout << std::endl;
     Byte *buffer2;
     
     buffer2 = new Byte[25]();

@@ -99,7 +99,7 @@ class ByteArray{
         
     }
 
-    bool operator ==(ByteArray obj2)
+    bool operator ==(ByteArray &obj2)
     {
         if(getLength() != obj2.getLength())
         {
