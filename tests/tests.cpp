@@ -114,26 +114,26 @@ TEST(listTest, Signatory)
     buffer[16] = 'a';
     buffer[17] = 'b';
     buffer[18] = int(2);
-    buffer[26] = 'a';
-    buffer[27] = 'b';
+    buffer[26] = 'c';
+    buffer[27] = 'd';
     buffer[28] = int(2);
-    buffer[36] = 'a';
-    buffer[37] = 'b';
+    buffer[36] = 'e';
+    buffer[37] = 'f';
     buffer[38] = int(2);
-    buffer[46] = 'a';
-    buffer[47] = 'b';
+    buffer[46] = 'g';
+    buffer[47] = 'h';
     buffer[48] = int(2);
-    buffer[56] = 'a';
-    buffer[57] = 'b';
+    buffer[56] = 'i';
+    buffer[57] = 'j';
     buffer[58] = int(2);
-    buffer[66] = 'a';
-    buffer[67] = 'b';
+    buffer[66] = 'k';
+    buffer[67] = 'l';
     buffer[68] = int(2);
-    buffer[76] = 'a';
+    buffer[76] = 'm';
     buffer[77] = 'b';
     buffer[78] = int(2);
-    buffer[86] = 'a';
-    buffer[87] = 'b';
+    buffer[86] = 'n';
+    buffer[87] = 'o';
     List<Signatory> l1;
     l1.deserialize(buffer);
     Byte *buffer2;
@@ -146,7 +146,7 @@ TEST(listTest, Signatory)
     delete[] buffer;
     delete[] buffer2;
 }
-
+ 
 TEST(signatureTest, both)
 {
     Signature s1;
@@ -279,14 +279,14 @@ TEST(signatoryTest, both)
     buffer[8] = 'a';
     buffer[9] = 'b';
     buffer[10] = int(2);
-    buffer[18] = 'a';
-    buffer[19] = 'b';
+    buffer[18] = 'c';
+    buffer[19] = 'd';
     buffer[20] = int(2);
-    buffer[28] = 'a';
-    buffer[29] = 'b';
+    buffer[28] = 'e';
+    buffer[29] = 'f';
     buffer[30] = int(2);
-    buffer[38] = 'a';
-    buffer[39] = 'b';
+    buffer[38] = 'g';
+    buffer[39] = 'h';
 
     s1.deserialize(buffer);
     Byte *buffer2;
@@ -317,29 +317,29 @@ TEST(txWiredataTest, both)
     buffer[45] = 'f';  
     buffer[46] = int(2);
     buffer[54] = int(2);
-    buffer[62] = 'a';
-    buffer[63] = 'b';
+    buffer[62] = 'g';
+    buffer[63] = 'h';
     buffer[64] = int(2);
-    buffer[72] = 'a';
-    buffer[73] = 'b';
+    buffer[72] = 'i';
+    buffer[73] = 'j';
     buffer[74] = int(2);
-    buffer[82] = 'a';
-    buffer[83] = 'b';
+    buffer[82] = 'k';
+    buffer[83] = 'l';
     buffer[84] = int(2);
-    buffer[92] = 'a';
-    buffer[93] = 'b';
+    buffer[92] = 'm';
+    buffer[93] = 'n';
     buffer[94] = int(2);
-    buffer[102] = 'a';
-    buffer[103] = 'b';
+    buffer[102] = 'o';
+    buffer[103] = 'p';
     buffer[104] = int(2);
-    buffer[112] = 'a';
-    buffer[113] = 'b';
+    buffer[112] = 'q';
+    buffer[113] = 'r';
     buffer[114] = int(2);
-    buffer[122] = 'a';
-    buffer[123] = 'b';
+    buffer[122] = 's';
+    buffer[123] = 't';
     buffer[124] = int(2);
-    buffer[132] = 'a';
-    buffer[133] = 'b';
+    buffer[132] = 'u';
+    buffer[133] = 'v';
 
     TxWireData dat1;
     dat1.deserialize(buffer);

@@ -2,7 +2,6 @@
 #define LIST
 
 #include"Signatory.h"
-#include<cstring>
 
 template<class T>
 class List{
@@ -275,8 +274,7 @@ class List<Signatory>{
         
     }
 
-    void printListArray()
-    {
+    void printListArray(){
         std::cout << number_of_list_items;
         for(int i = 0; i < number_of_list_items; i++)
         {
