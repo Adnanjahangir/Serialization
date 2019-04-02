@@ -44,7 +44,7 @@ class PrimaryTx{
 
     }
 
-    auto serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, const uint64_t &offset = 0)
     {
         uint64_t index = 0, temp = 0;
         temp = contract_name.serialize(buffer, offset);
@@ -60,7 +60,7 @@ class PrimaryTx{
         return length;
     }
 
-    void deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, const uint64_t &position=0)
     {
         
         uint64_t index = position;
@@ -75,7 +75,6 @@ class PrimaryTx{
         length = contract_name.getLength() + sizeof(uint64_t) + resources.getLength();
 
     }
-
 
     void Print(){
         contract_name.printByteArray();

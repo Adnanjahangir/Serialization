@@ -33,7 +33,7 @@ class SigningTx{
         length = (primary_data.getLength() + identity_data.getLength());
     }
 
-    auto serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, const uint64_t &offset = 0)
     {
         uint64_t index = 0, temp = 0;
         temp = primary_data.serialize(buffer);
@@ -45,7 +45,7 @@ class SigningTx{
         return length;
     }
 
-    void deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, const uint64_t &position=0)
     {
         uint64_t index = position;
         primary_data.deserialize(buffer);

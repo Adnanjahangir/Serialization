@@ -39,14 +39,14 @@ class Identity{
         length = (identifier.getLength()) + (type.getLength());
     }
 
-    auto serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, const uint64_t &offset = 0)
     {
         identifier.serialize(buffer, offset);
         type.serialize(buffer, offset + identifier.getLength());
         return length;
     }
 
-    void deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, const uint64_t &position=0)
     {
         identifier.deserialize(buffer, position);
         type.deserialize(buffer, (position + identifier.getLength()));

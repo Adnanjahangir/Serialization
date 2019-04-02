@@ -47,7 +47,7 @@ class List{
         }
     }
 
-    auto serialize(Byte *buffer, uint64_t index=0)
+    auto serialize(Byte *buffer, const uint64_t &index=0)
     {
         Byte *ptr = buffer+index;
         memcpy(ptr, &number_of_list_items, sizeof(uint64_t));    
@@ -60,7 +60,7 @@ class List{
         return (number_of_list_items*sizeof(T))+sizeof(uint64_t);
     }
 
-    void deserialize(Byte *buffer,int position=0)
+    void deserialize(Byte *buffer, const uint64_t &position=0)
     {
         Byte *ptr = buffer+position;
         memcpy(&number_of_list_items, ptr, sizeof(uint64_t));
@@ -150,7 +150,7 @@ class List<ByteArray>{
         }
     }
 
-    auto serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, const uint64_t &offset = 0)
     {
         Byte *ptr;
         ptr = buffer+offset;
@@ -168,7 +168,7 @@ class List<ByteArray>{
         
     }
 
-    void deserialize(Byte *buffer,int position = 0)
+    void deserialize(Byte *buffer, const uint64_t &position = 0)
     {
         uint64_t index = position;
         if(listItems)
@@ -239,7 +239,7 @@ class List<Signatory>{
         }
     }
 
-    auto serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, const uint64_t &offset = 0)
     {
         Byte *ptr = buffer+offset;
         memcpy(ptr, &number_of_list_items, sizeof(number_of_list_items));
@@ -254,7 +254,7 @@ class List<Signatory>{
         return sizeforserializtion;
     }
 
-    void deserialize(Byte *buffer,int position = 0)
+    void deserialize(Byte *buffer, const uint64_t &position = 0)
     {
         uint64_t index = position;
         Byte *ptr1 = buffer+index;

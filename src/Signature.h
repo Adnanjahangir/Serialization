@@ -34,14 +34,14 @@ class Signature{
         length = Signature_data.getLength() + Signature_type.getLength();
     }
 
-    auto serialize(Byte *buffer, int offset = 0)
+    auto serialize(Byte *buffer, const uint64_t &offset = 0)
     {
         Signature_data.serialize(buffer, offset);
         Signature_type.serialize(buffer, Signature_data.getLength()+offset);
         return length;
     }
 
-    void deserialize(Byte *buffer, int position=0)
+    void deserialize(Byte *buffer, const uint64_t &position=0)
     {
         Signature_data.deserialize(buffer, position);
         Signature_type.deserialize(buffer, position + Signature_data.getLength());

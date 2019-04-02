@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION "3.6")
 project(miniProject)
 set(CMAKE_CONFIGURATION_TYPES "Debug" CACHE STRING "" FORCE)
-
+include(CTest)
 include_directories("${CMAKE_SOURCE_DIR}/src")
 add_subdirectory("${CMAKE_SOURCE_DIR}/tests")        # for GMockCatchListener.h
 
