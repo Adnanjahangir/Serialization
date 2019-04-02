@@ -4,6 +4,23 @@ This library helps you serialize and deserialize data in a specific format descr
 
 To install the dependencies of these libraries, a Docker file is provided which makes an image of Ubuntu, installing all the required components and a container can be created in which you can work on. You have to add a main.cpp file in the src folder inside your docker container to compile and make an executable.
 
+
+You can build the project by running these sequence of commands
+
+
+mkdir build
+
+cd build
+
+cmake ..
+
+make
+
+
+
+
+To check if the library is working, you can run the command "ctest" to run all the test and see if it's functioning properly
+
 The library has various classes depending on the the type of data format. 
 
 Main header file to include in this library is TxWireData.h which includes all the other header files and all other classes 
