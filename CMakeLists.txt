@@ -7,9 +7,6 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/tests")        # for GMockCatchListener.h
 
 set(VENDOR_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdparty")
 
-#set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -lasan -fno-omit-frame-pointer -fsanitize=address")
-
-
 ## google test configuration
 add_subdirectory("${VENDOR_SOURCE_DIR}/googletest")
 include_directories("${VENDOR_SOURCE_DIR}/googletest/googletest/include")
