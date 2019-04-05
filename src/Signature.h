@@ -1,66 +1,70 @@
-#ifndef SIGNATURE
-#define SIGNATURE
-
+#pragma once
 #include"ByteArray.h"
 
-class Signature{
-    uint64_t length;
-    ByteArray Signature_data;
-    ByteArray Signature_type;
-    
-    public:
-    Signature(){
-    }
+namespace eMumba_ad{
+    namespace serialization{
+        class Signature{
+            uint64_t length;
+            ByteArray signature_data;
+            ByteArray signature_type;
+            
+            public:
+            Signature(){
+            }
 
-    void SetSignature(){
-        std::cout << "Enter Signature data: \n"; 
-        try
-        {
-            Signature_data.setByteArray();
-        }
-        catch(const std::exception& e)
-        {
-            throw MyException();
-        }
-        std::cout << "Enter type of Signature: \n";
-        try
-        {
-            Signature_type.setByteArray();
-        }
-        catch(const std::exception& e)
-        {
-            throw MyException();
-        }
-        length = Signature_data.getLength() + Signature_type.getLength();
-    }
+            Signature(const ByteArray &obj1, const ByteArray &obj2){
+                signature_data = obj1;
+                signature_type = obj2;
+                length = signature_data.getLength() + signature_type.getLength();
+            }
 
-    auto serialize(Byte *buffer, const uint64_t &offset = 0)
-    {
-        Signature_data.serialize(buffer, offset);
-        Signature_type.serialize(buffer, Signature_data.getLength()+offset);
-        return length;
-    }
+            void operator =(const Signature &obj2)
+            {
+                signature_data = obj2.signature_data;
+                signature_type = obj2.signature_type;
+                length = signature_data.getLength() + signature_type.getLength();
 
-    void deserialize(Byte *buffer, const uint64_t &position=0)
-    {
-        Signature_data.deserialize(buffer, position);
-        Signature_type.deserialize(buffer, position + Signature_data.getLength());
-        length = (Signature_data.getLength() + Signature_type.getLength());
-    }
-    
-    void printSignature()
-    {
-        Signature_data.printByteArray();
-        Signature_type.printByteArray();
-    }
-    uint64_t getLength()
-    {
-        return length;
-    }
-    ~Signature()
-    {
-    }
+            }
 
-};
+            void setData(const ByteArray &obj1){
+                signature_data = obj1;    
+                length = signature_data.getLength() + signature_type.getLength();
 
-#endif
+            }
+            
+            void setType(const ByteArray &obj1){
+                signature_type = obj1;    
+                length = signature_data.getLength() + signature_type.getLength();
+
+            }
+
+            auto serialize(Byte *buffer, const uint64_t &offset = 0)
+            {
+                signature_data.serialize(buffer, offset);
+                signature_type.serialize(buffer, signature_data.getLength()+offset);
+                return length;
+            }
+
+            void deserialize(Byte *buffer, const uint64_t &position=0)
+            {
+                signature_data.deserialize(buffer, position);
+                signature_type.deserialize(buffer, position + signature_data.getLength());
+                length = (signature_data.getLength() + signature_type.getLength());
+            }
+            
+            void print()
+            {
+                signature_data.print();
+                signature_type.print();
+            }
+            uint64_t getLength()
+            {
+                return length;
+            }
+            ~Signature()
+            {
+            }
+
+        };
+    }
+}

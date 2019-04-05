@@ -1,6 +1,6 @@
-#include"gtest/gtest.h"
-#include"TxWireData.h"
-
+#include "gtest/gtest.h"
+#include "TxWireData.h"
+using namespace eMumba_ad::serialization;
 
 TEST(bytearray, serializefunc)
 {

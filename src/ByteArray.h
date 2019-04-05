@@ -1,131 +1,128 @@
-#ifndef BYTEARRAY
-#define BYTEARRAY
+#pragma once
 
-#include<iostream>
-#include<cstring>
+#include <iostream>
+#include <cstring>
+#include <cstdarg>
 
 typedef unsigned char Byte;
 
+namespace eMumba_ad{
+    namespace serialization{
+        class ByteArray{
 
-struct MyException : public std::exception
-{
-	const char * what () const throw ()
-    {
-    	return "Input Error";
-    }
-};
-
-
-
-class ByteArray{
-
-    uint64_t number_of_bytes;
-    Byte* bytes;
-    
-    public:
-    ByteArray()
-    {
-        number_of_bytes = 0;
-        bytes = NULL;
-    }
-    ByteArray(uint64_t no):number_of_bytes(no)
-    {
-        bytes = new Byte[number_of_bytes]();
-        auto b = 0x47;  
-        for(int i = 0; i<number_of_bytes; i++)
+        uint64_t number_of_bytes;
+        Byte* bytes;
+        
+        public:
+        ByteArray()
         {
-            bytes[i] = char(b);
-            b += 1;
-            if (b>0x73)
-                b=b-0x26;
+            number_of_bytes = 0;
+            bytes = NULL;
         }
-    }
-    
-    void setByteArray()
-    {
-        std::cout << "Enter length: ";
-        std::cin >> number_of_bytes;
-        if(std::cin.fail())
+        
+        ByteArray(uint64_t no, ... )
         {
-            throw MyException();
-        }
-        delete bytes;
-        std::cout << "Enter " << number_of_bytes << " bytes: ";
-        bytes = new Byte [number_of_bytes](); 
-        for(int i = 0; i< number_of_bytes; i++)
-        {
-            std::cin >> bytes[i];
-            if(std::cin.fail())
+            va_list args;
+            va_start(args, no);
+            number_of_bytes = no;
+            bytes = new Byte[number_of_bytes]();
+
+            for(int i = 0; i < number_of_bytes; i++)
             {
-                throw MyException();
+                bytes[i] = va_arg(args, int);
             }
         }
 
-    }
-
-    auto serialize(Byte *buffer, const uint64_t &offset = 0)
-    {
-        Byte *ptr = buffer+offset;
-        memcpy(ptr, &number_of_bytes, sizeof(uint64_t));
-        for(int i = 0; i < number_of_bytes; i++)
+        void set(uint64_t no, ... )
         {
-            buffer[(sizeof(uint64_t) + i + offset)] = bytes[i] ;
-        }
-        return number_of_bytes+sizeof(uint64_t);
-    }
+            va_list args;
+            va_start(args, no);
+            if (bytes)
+                delete[] bytes;
+            number_of_bytes = no;
+            bytes = new Byte[number_of_bytes]();
 
-    void deserialize(Byte *buffer, const uint64_t &position=0)
-    {
-        Byte *ptr = buffer+position;
-        memcpy(&number_of_bytes, ptr, sizeof(uint64_t));
+            for(int i = 0; i < number_of_bytes; i++)
+            {
+                bytes[i] = va_arg(args, int);
+            }
+        }
+
+        auto serialize(Byte *buffer, const uint64_t &offset = 0)
+        {
+            Byte *ptr = buffer+offset;
+            memcpy(ptr, &number_of_bytes, sizeof(uint64_t));
+            for(int i = 0; i < number_of_bytes; i++)
+            {
+                buffer[(sizeof(uint64_t) + i + offset)] = bytes[i] ;
+            }
+            return number_of_bytes+sizeof(uint64_t);
+        }
+
+        void deserialize(Byte *buffer, const uint64_t &position=0)
+        {
+            Byte *ptr = buffer+position;
+            memcpy(&number_of_bytes, ptr, sizeof(uint64_t));
+            
+            if(bytes)
+                delete[] bytes;
+            bytes = new Byte [number_of_bytes]();
+            for(int i = 0; i < number_of_bytes; i++)
+            {
+                bytes[i] = buffer[i + sizeof(uint64_t) + position];
+            }
+        }
         
-        if(bytes)
-            delete[] bytes;
-        bytes = new Byte [number_of_bytes]();
-        for(int i = 0; i < number_of_bytes; i++)
+        void print()
         {
-            bytes[i] = buffer[i + sizeof(uint64_t) + position];
-        }
-    }
-    
-    void printByteArray()
-    {
-        std::cout  << (number_of_bytes) ;
-        
-        for(int i = 0; i < number_of_bytes; i++)
-        {
-            std::cout  << int(bytes[i]) << " ";
-        }
-        
-    }
-
-    bool operator ==(ByteArray &obj2)
-    {
-        if(getLength() != obj2.getLength())
-        {
-            return false;
+            std::cout  << (number_of_bytes) ;
+            
+            for(int i = 0; i < number_of_bytes; i++)
+            {
+                std::cout  << int(bytes[i]) << " ";
+            }
+            
         }
 
-        for(int i = 0; i < number_of_bytes; i++)
+        void operator =(const ByteArray &obj2)
         {
-            if(bytes[i] != obj2.bytes[i])
+            number_of_bytes = obj2.number_of_bytes;
+            if(bytes)
+                delete[] bytes;
+            bytes = new Byte[number_of_bytes]();
+            for(int i = 0; i < number_of_bytes; i++)
+            {
+                bytes[i] = obj2.bytes[i];
+            }
+        }
+
+        bool operator ==(ByteArray &obj2)
+        {
+            if(getLength() != obj2.getLength())
             {
                 return false;
             }
+
+            for(int i = 0; i < number_of_bytes; i++)
+            {
+                if(bytes[i] != obj2.bytes[i])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
-        return true;
-    }
 
-    uint64_t getLength()
-    {
-        return (number_of_bytes+sizeof(uint64_t));
-    }
+        uint64_t getLength()
+        {
+            return (number_of_bytes+sizeof(uint64_t));
+        }
 
-    ~ByteArray()
-    {
-        delete[] bytes;
-    }
-};
-
-
-#endif
+        ~ByteArray()
+        {
+            if (bytes)
+                delete[] bytes;
+        }
+    };
+}
+}
