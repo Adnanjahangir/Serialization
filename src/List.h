@@ -19,8 +19,20 @@ namespace eMumba_ad{
                 currentindex = 0;
                 listItems = NULL;    
             }
+
+            List(uint64_t no):number_of_list_items(no){
+                listItems = new T[number_of_list_items];
+                sizeforserializtion = sizeof(number_of_list_items);
+            }
             
-            void setLength(const int &len)
+            T* operator [](uint64_t i)
+            {
+                if(i >= number_of_list_items)
+                    throw std::out_of_range("Index out of range");
+                return &listItems[i];   
+            }
+
+            void setLength(const uint64_t &len)
             {
                 number_of_list_items = len;
                 listItems = new T[number_of_list_items];
@@ -43,7 +55,7 @@ namespace eMumba_ad{
             void add(const T &b1)
             {
                 if(currentindex >= number_of_list_items)
-                    std::cout << "List full";
+                    throw std::out_of_range("List is Full");
                 else
                 {
                     listItems[currentindex] = b1;

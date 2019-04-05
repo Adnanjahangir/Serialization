@@ -26,11 +26,17 @@ namespace eMumba_ad{
             va_start(args, no);
             number_of_bytes = no;
             bytes = new Byte[number_of_bytes]();
-
             for(int i = 0; i < number_of_bytes; i++)
             {
                 bytes[i] = va_arg(args, int);
             }
+        }
+        
+        Byte* operator [](uint64_t i)
+        {
+            if(i >= number_of_bytes)
+                throw std::out_of_range("Index out of range");
+            return &bytes[i];   
         }
 
         void set(uint64_t no, ... )
